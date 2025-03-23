@@ -1,0 +1,15 @@
+[patch.'https://github.com/AstranciA/AstrancE.git']
+axstd = { path = ".AstrancE/ulib/axstd" }
+arceos_posix_api = { path = ".AstrancE/api/arceos_posix_api" }
+axhal = { path = ".AstrancE/modules/axhal" }
+axmm = { path = ".AstrancE/modules/axmm" }
+axtask = { path = ".AstrancE/modules/axtask" }
+axsync = { path = ".AstrancE/modules/axsync" }
+axruntime = { path = ".AstrancE/modules/axruntime" }
+axns = { path = ".AstrancE/modules/axns" }
+axfs = { path = ".AstrancE/modules/axfs" }
+axconfig = { path = ".AstrancE/modules/axconfig" }
+acbat = { path = ".AstrancE/crates/acbat" }
+axsyscall = { path = ".AstrancE/modules/axsyscall" }
+axlog = { path = ".AstrancE/modules/axlog" }
+axalloc = { path = ".AstrancE/modules/axalloc" }
