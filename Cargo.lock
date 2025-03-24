@@ -9,6 +9,7 @@ dependencies = [
  "acbat",
  "arceos_posix_api",
  "axalloc",
+ "axconfig",
  "axerrno",
  "axfs",
  "axhal",
@@ -417,6 +418,8 @@ version = "0.1.0"
 dependencies = [
  "axalloc",
  "axconfig",
+ "axdriver",
+ "axfs",
  "axhal",
  "axlog",
  "axmm",

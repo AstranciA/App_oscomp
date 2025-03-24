@@ -1,3 +1,5 @@
+[net]
+offline=true
 [patch.'https://github.com/AstranciA/AstrancE.git']
 axstd = { path = "%AX_ROOT%/ulib/axstd" }
 arceos_posix_api = { path = "%AX_ROOT%/api/arceos_posix_api" }
@@ -13,3 +15,4 @@ acbat = { path = "%AX_ROOT%/crates/acbat" }
 axsyscall = { path = "%AX_ROOT%/modules/axsyscall" }
 axlog = { path = "%AX_ROOT%/modules/axlog" }
 axalloc = { path = "%AX_ROOT%/modules/axalloc" }
+axfeat = { path = "%AX_ROOT%/api/axfeat" }

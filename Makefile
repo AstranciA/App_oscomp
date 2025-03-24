@@ -1,10 +1,16 @@
+AX_MAKE_DEFAULTS ?= BLK=y FEATURES=lwext4_rs,fp_simd,fs
+
+TOOLCHAIN_DIR ?= ../toolchains
 AX_SOURCE ?= git:https://github.com/AstranciA/AstrancE.git
 AX_ROOT ?= .AstrancE
-AX_TESTCASE ?= nimbos
+T_ROOT ?= $(PWD)/testcases
+T ?= nimbos
 ARCH ?= x86_64
 LOG ?= off
 #AX_TESTCASES_LIST=$(shell cat ./apps/$(AX_TESTCASE)/testcase_list | tr '\n' ',')
 FEATURES ?= fp_simd
+
+TESTCASE := $(T_ROOT)/$(T)
 
 RUSTDOCFLAGS := -Z unstable-options --enable-index-page -D rustdoc::broken_intra_doc_links -D missing-docs
 EXTRA_CONFIG ?= $(PWD)/configs/$(ARCH).toml
@@ -37,7 +43,10 @@ endif
 
 include scripts/make/oscomp.mk
 
-all: oscomp_build
+all: env oscomp_build
+
+env:
+	export PATH=$(TOOLCHAIN_DIR)/bin:$(PATH)
 
 # export dummy config for clippy
 clippy: defconfig
@@ -50,23 +59,21 @@ ax_root:
 	@./scripts/set_ax_root.sh $(AX_ROOT)
 	@make -C $(AX_ROOT) disk_img
 
-#user_apps:
-	#@make -C ./apps/$(AX_TESTCASE) ARCH=$(ARCH) build
-	#@if [ -z "$(shell command -v sudo)" ]; then \
-		#./build_img.sh -a $(ARCH) -file ./apps/$(AX_TESTCASE)/build/$(ARCH) -s 20; \
-	#else \
-		#sudo ./build_img.sh -a $(ARCH) -file ./apps/$(AX_TESTCASE)/build/$(ARCH) -s 20; \
-	#fi
-	#@mv ./disk.img $(AX_ROOT)/disk.img
+testcase:
+	#@make -C $(TESTCASE) ARCH=$(ARCH) build
+	@make -C $(TESTCASE) ARCH=$(ARCH) rust
+	@if [ -z "$(shell command -v sudo)" ]; then \
+		./build_img.sh -a $(ARCH) -fs ext4 -file $(TESTCASE)/build/$(ARCH) -s 20; \
+	else \
+		sudo ./build_img.sh -a $(ARCH) -fs ext4 -file $(TESTCASE)/build/$(ARCH) -s 20; \
+	fi
+	@mv ./disk.img $(AX_ROOT)/disk.img
 
 test: defconfig
 	@./scripts/app_test.sh
 
-temp_run: ax_root
-	@make -C $(AX_ROOT) A=$(PWD) EXTRA_CONFIG=$(EXTRA_CONFIG) $@
-
-defconfig build run justrun debug disasm: ax_root
-	@make -C $(AX_ROOT) A=$(PWD) EXTRA_CONFIG=$(EXTRA_CONFIG) $@
+defconfig build run justrun debug disasm:env ax_root
+	@make -C $(AX_ROOT) A=$(PWD) EXTRA_CONFIG=$(EXTRA_CONFIG) $(AX_MAKE_DEFAULTS) $@
 
 clean: ax_root
 	@make -C $(AX_ROOT) A=$(PWD) ARCH=$(ARCH) clean

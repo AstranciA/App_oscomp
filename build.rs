@@ -16,6 +16,7 @@ const TESTCASES: [&str; 2] = [
 const LINKER_FILE: &str = "./link_apps.S";
 
 fn main() {
+    return;
     let arch = env::var("CARGO_CFG_TARGET_ARCH").unwrap();
     //gen_kernel_config(arch.as_str()).unwrap();
     /*

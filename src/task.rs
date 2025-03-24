@@ -71,6 +71,7 @@ impl TaskExt {
         _tls: usize,
         _ctid: usize,
     ) -> AxResult<u64> {
+            axconfig::plat::KERNEL_STACK_SIZE;
         let _clone_flags = CloneFlags::from_bits((flags & !0x3f) as u32).unwrap();
 
         let mut new_task = TaskInner::new(
@@ -86,7 +87,7 @@ impl TaskExt {
                 unsafe { curr.task_ext().uctx.enter_uspace(kstack_top) };
             },
             String::from(current().id_name()),
-            crate::config::KERNEL_STACK_SIZE,
+            axconfig::plat::KERNEL_STACK_SIZE,
         );
 
         let current_task = current();
@@ -233,7 +234,7 @@ pub fn spawn_user_task(aspace: Arc<Mutex<AddrSpace>>, uctx: UspaceContext) -> Ax
             unsafe { curr.task_ext().uctx.enter_uspace(kstack_top) };
         },
         "userboot".into(),
-        crate::config::KERNEL_STACK_SIZE,
+        axconfig::plat::KERNEL_STACK_SIZE,
     );
     task.ctx_mut()
         .set_page_table_root(aspace.lock().page_table_root());

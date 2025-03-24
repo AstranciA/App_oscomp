@@ -13,9 +13,8 @@ extern crate axlog;
 #[macro_use]
 extern crate alloc;
 
-mod config;
 mod ctypes;
-pub mod elf;
+mod elf;
 mod loader;
 mod mm;
 mod task;
@@ -30,21 +29,35 @@ use axmm::{AddrSpace, kernel_aspace};
 use axstd::println;
 use axsync::Mutex;
 use axsyscall::syscall_handler;
-use loader::{get_num_app};
+use loader::get_num_app;
 use mm::load_user_app;
 
-global_asm!(include_str!("../link_apps.S"));
+//global_asm!(include_str!("../link_apps.S"));
 
 //#[cfg_attr(feature = "axstd", unsafe(no_mangle))]
 #[unsafe(no_mangle)]
 fn main() {
     println!("Hello, world!");
-    run_testcase_all();
+    let TESTCASES = include!("./testcase_list");
+    /*
+     *let read_dir = axfs::api::read_dir("/").unwrap();
+     *for entry in read_dir {
+     *    let entry = entry.unwrap();
+     *    println!("entry: {:?}", entry);
+     *    if !entry.file_type().is_file() {
+     *        continue;
+     *    }
+     *    run_testcase(entry.path().as_str());
+     *}
+     */
+    for &t in TESTCASES.iter() {
+        run_testcase(t);
+    }
+    //run_testcase_all();
 }
 
-const APP_NAME: &str = "testcase";
-fn run_testcase(idx: usize) {
-    let (entry_vaddr, ustack_top, uspace) = load_user_app(APP_NAME, idx).unwrap();
+fn run_testcase(app_path: &str) {
+    let (entry_vaddr, ustack_top, uspace) = load_user_app(app_path).unwrap();
     debug!(
         "app_entry: {:?}, app_stack: {:?}, app_aspace: {:?}",
         entry_vaddr, ustack_top, uspace
@@ -55,15 +68,15 @@ fn run_testcase(idx: usize) {
     info!("User task exited with code: {:?}", exit_code);
 }
 
-fn run_testcase_all() {
-    let num_app = get_num_app();
-    info!("Found {} testcases", num_app);
-    for i in 0..num_app {
-        info!("Running testcase {}", i);
-        run_testcase(i);
-        info!("Testcase {} finished", i);
-    }
-}
+//fn run_testcase_all() {
+//let num_app = get_num_app();
+//info!("Found {} testcases", num_app);
+//for i in 0..num_app {
+//info!("Running testcase {}", i);
+//run_testcase(i);
+//info!("Testcase {} finished", i);
+//}
+//}
 
 #[register_trap_handler(SYSCALL)]
 fn handle_syscall(tf: &TrapFrame, syscall_num: usize) -> isize {
@@ -77,6 +90,8 @@ fn handle_syscall(tf: &TrapFrame, syscall_num: usize) -> isize {
     ];
     debug!("Syscall: {:?}, args: {:?}", syscall_num, args);
     let result = syscall_handler(syscall_num, args);
+    //let result = unsafe { catch_unwind(syscall_handler, (syscall_num, args), |a, b| -1) }as isize;
+    //let result = Ok(result);
     let result = match result {
         Ok(r) => r,
         Err(e) => e,

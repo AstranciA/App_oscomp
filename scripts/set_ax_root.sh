@@ -13,6 +13,6 @@ if [ ! -d "$AX_ROOT" ]; then
 fi
 
 mkdir -p .cargo
-sed -e "s|%AX_ROOT%|$AX_ROOT|g" scripts/config.toml.template > .cargo/config.toml
+sed -e "s|%AX_ROOT%|$AX_ROOT|g" scripts/config.toml > .cargo/config.toml
 
 echo "Set AX_ROOT (ArceOS directory) to $AX_ROOT"
