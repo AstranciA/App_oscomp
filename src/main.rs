@@ -92,10 +92,8 @@ fn handle_syscall(tf: &TrapFrame, syscall_num: usize) -> isize {
     let result = syscall_handler(syscall_num, args);
     //let result = unsafe { catch_unwind(syscall_handler, (syscall_num, args), |a, b| -1) }as isize;
     //let result = Ok(result);
-    let result = match result {
-        Ok(r) => r,
-        Err(e) => e,
-    };
+    let result: isize = result.into();
+
     println!("syscall_handler result: {:}", result);
     result
 }
