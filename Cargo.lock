@@ -148,7 +148,6 @@ dependencies = [
  "axns",
  "axruntime",
  "axsync",
- "axtask",
  "bindgen",
  "ctor_bare",
  "flatten_objects",
@@ -275,8 +274,6 @@ dependencies = [
  "axhal",
  "axlog",
  "axruntime",
- "axsync",
- "axtask",
 ]
 
 [[package]]
@@ -453,6 +450,7 @@ name = "axsyscall"
 version = "0.1.0"
 dependencies = [
  "arceos_posix_api",
+ "axerrno",
  "syscalls",
 ]
 
