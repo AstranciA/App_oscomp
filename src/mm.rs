@@ -13,7 +13,7 @@ use crate::{
     loader,
 };
 
-fn new_user_aspace_empty() -> AxResult<AddrSpace> {
+pub fn new_user_aspace_empty() -> AxResult<AddrSpace> {
 
     /*
      *AddrSpace::new_empty(

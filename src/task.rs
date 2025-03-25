@@ -6,24 +6,26 @@ use alloc::{
 use arceos_posix_api::FD_TABLE;
 use axerrno::{AxError, AxResult};
 use axfs::{CURRENT_DIR, CURRENT_DIR_PATH};
-use memory_addr::VirtAddrRange;
 use core::{
     cell::UnsafeCell,
+    ops::Deref,
     sync::atomic::{AtomicU64, Ordering},
 };
+use memory_addr::VirtAddrRange;
 
 use crate::{
     copy_from_kernel,
     ctypes::{CloneFlags, TimeStat, WaitStatus},
+    mm::new_user_aspace_empty,
 };
 use axhal::{
     arch::{TrapFrame, UspaceContext},
     time::{NANOS_PER_MICROS, NANOS_PER_SEC, monotonic_time_nanos},
 };
-use axmm::{kernel_aspace, AddrSpace};
+use axmm::{AddrSpace, kernel_aspace};
 use axns::{AxNamespace, AxNamespaceIf};
 use axsync::Mutex;
-use axtask::{AxTaskRef, TaskExtRef, TaskInner, current};
+use axtask::{AxTaskRef, TaskExtRef, TaskInner, WeakAxTaskRef, current};
 
 /// Task extended data for the monolithic kernel.
 pub struct TaskExt {
@@ -71,8 +73,9 @@ impl TaskExt {
         _tls: usize,
         _ctid: usize,
     ) -> AxResult<u64> {
-            axconfig::plat::KERNEL_STACK_SIZE;
-        let _clone_flags = CloneFlags::from_bits((flags & !0x3f) as u32).unwrap();
+        axconfig::plat::KERNEL_STACK_SIZE;
+        // TODO: support all flags
+        let clone_flags = CloneFlags::from_bits((flags & !0x3f) as u32).unwrap();
 
         let mut new_task = TaskInner::new(
             || {
@@ -93,8 +96,15 @@ impl TaskExt {
         let current_task = current();
 
         let mut current_aspace = current_task.task_ext().aspace.lock();
-        let mut new_aspace = current_aspace.clone_or_err()?;
+        let mut new_aspace;
+
+        if clone_flags.contains(CloneFlags::CLONE_VM) {
+            new_aspace = current_aspace.clone_or_err()?;
+        } else {
+            new_aspace = new_user_aspace_empty().expect("Failed ot create user address space");
+        }
         copy_from_kernel(&mut new_aspace);
+
         new_task
             .ctx_mut()
             .set_page_table_root(new_aspace.page_table_root());
@@ -111,7 +121,7 @@ impl TaskExt {
         let new_uctx = UspaceContext::from(&trap_frame);
 
         let return_id: u64 = new_task.id().as_u64();
-        let new_task_ext = TaskExt::new(
+        let mut new_task_ext = TaskExt::new(
             return_id as usize,
             new_uctx,
             Arc::new(Mutex::new(new_aspace)),
@@ -193,7 +203,6 @@ impl Drop for TaskExt {
         if !cfg!(target_arch = "aarch64") && !cfg!(target_arch = "loongarch64") {
             // See [`crate::new_user_aspace`]
 
-
             let kernel = kernel_aspace().lock();
 
             self.aspace
@@ -220,10 +229,16 @@ impl AxNamespaceIf for AxNamespaceImpl {
 
 axtask::def_task_ext!(TaskExt);
 
-pub fn spawn_user_task(aspace: Arc<Mutex<AddrSpace>>, uctx: UspaceContext) -> AxTaskRef {
+pub fn spawn_user_task(
+    app_name: &str,
+    aspace: Arc<Mutex<AddrSpace>>,
+    uctx: UspaceContext,
+) -> AxTaskRef {
     let mut task = TaskInner::new(
-        || {
+        move || {
+            // TODO: no current
             let curr = axtask::current();
+            println!("curr: {:?},app: {}", curr.id(), "asdf");
             let kstack_top = curr.kernel_stack_top().unwrap();
             info!(
                 "Enter user space: entry={:#x}, ustack={:#x}, kstack={:#x}",
@@ -233,9 +248,10 @@ pub fn spawn_user_task(aspace: Arc<Mutex<AddrSpace>>, uctx: UspaceContext) -> Ax
             );
             unsafe { curr.task_ext().uctx.enter_uspace(kstack_top) };
         },
-        "userboot".into(),
+        app_name.into(),
         axconfig::plat::KERNEL_STACK_SIZE,
     );
+    println!("proot: 0x{:x}", aspace.lock().page_table_root().as_usize());
     task.ctx_mut()
         .set_page_table_root(aspace.lock().page_table_root());
     task.init_task_ext(TaskExt::new(task.id().as_u64() as usize, uctx, aspace));
@@ -322,6 +338,36 @@ pub fn wait_pid(pid: i32, exit_code_ptr: *mut i32) -> Result<u64, WaitStatus> {
     Err(answer_status)
 }
 
+/// fork current task
+/// **Return**
+/// - `Ok(new_task_ref)` if fork successfully
+pub fn fork(current_task: AxTaskRef) -> AxResult<AxTaskRef> {
+    let current_task_ext = current_task.task_ext();
+    // new task with same ip and sp of current task
+
+    let mut trap_frame = read_trapframe_from_kstack(current_task.get_kernel_stack_top().unwrap());
+    //trap_frame.set_ret_code(0);
+    //trap_frame.sepc += 4;
+
+    let mut current_aspace = current_task_ext.aspace.lock();
+    let mut new_aspace = current_aspace.clone_or_err()?;
+    copy_from_kernel(&mut new_aspace);
+
+    // stack is copied meanwhilst addr space is copied
+    //trap_frame.set_user_sp(stack);
+
+    // TODO: not too safe
+    let new_uctx = UspaceContext::from(&current_task_ext.uctx.0);
+    //let new_uctx = current_task_ext.uctx.0;
+
+    let new_task_ref = spawn_user_task(current_task.name(), Arc::new(Mutex::new(new_aspace)), new_uctx);
+    write_trapframe_to_kstack(new_task_ref.kernel_stack_top().unwrap().into(), &trap_frame);
+
+    current_task_ext.children.lock().push(new_task_ref.clone());
+
+    Ok(new_task_ref)
+}
+
 pub fn exec(program_name: &str) -> AxResult<()> {
     let current_task = current();
 
@@ -337,25 +383,25 @@ pub fn exec(program_name: &str) -> AxResult<()> {
     axhal::arch::flush_tlb(None);
 
     todo!();
-/*
- *    let (entry_point, user_stack_base) = crate::mm::map_elf_sections(&program_name, &mut aspace)
- *        .map_err(|_| {
- *            error!("Failed to load app {}", program_name);
- *            AxError::NotFound
- *        })?;
- *    current_task.set_name(&program_name);
- *
- *    let task_ext = unsafe { &mut *(current_task.task_ext_ptr() as *mut TaskExt) };
- *    task_ext.uctx = UspaceContext::new(entry_point.as_usize(), user_stack_base, 0);
- *
- *    unsafe {
- *        task_ext.uctx.enter_uspace(
- *            current_task
- *                .kernel_stack_top()
- *                .expect("No kernel stack top"),
- *        );
- *    }
- */
+    /*
+     *    let (entry_point, user_stack_base) = crate::mm::map_elf_sections(&program_name, &mut aspace)
+     *        .map_err(|_| {
+     *            error!("Failed to load app {}", program_name);
+     *            AxError::NotFound
+     *        })?;
+     *    current_task.set_name(&program_name);
+     *
+     *    let task_ext = unsafe { &mut *(current_task.task_ext_ptr() as *mut TaskExt) };
+     *    task_ext.uctx = UspaceContext::new(entry_point.as_usize(), user_stack_base, 0);
+     *
+     *    unsafe {
+     *        task_ext.uctx.enter_uspace(
+     *            current_task
+     *                .kernel_stack_top()
+     *                .expect("No kernel stack top"),
+     *        );
+     *    }
+     */
 }
 
 pub fn time_stat_from_kernel_to_user() {

@@ -148,6 +148,7 @@ dependencies = [
  "axns",
  "axruntime",
  "axsync",
+ "axtask",
  "bindgen",
  "ctor_bare",
  "flatten_objects",
@@ -274,6 +275,8 @@ dependencies = [
  "axhal",
  "axlog",
  "axruntime",
+ "axsync",
+ "axtask",
 ]
 
 [[package]]
