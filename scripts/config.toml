@@ -16,3 +16,4 @@ axsyscall = { path = "%AX_ROOT%/modules/axsyscall" }
 axlog = { path = "%AX_ROOT%/modules/axlog" }
 axalloc = { path = "%AX_ROOT%/modules/axalloc" }
 axfeat = { path = "%AX_ROOT%/api/axfeat" }
+axmono = { path = "%AX_ROOT%/ulib/axmono" }

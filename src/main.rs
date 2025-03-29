@@ -13,14 +13,10 @@ extern crate axlog;
 #[macro_use]
 extern crate alloc;
 
-mod ctypes;
-mod elf;
 mod loader;
-mod mm;
-mod task;
-mod trap;
 
 use alloc::borrow::Cow;
+use alloc::string::ToString;
 use alloc::sync::Arc;
 use axerrno::AxResult;
 use axhal::arch::TrapFrame;
@@ -30,7 +26,9 @@ use axmm::{AddrSpace, kernel_aspace};
 use axstd::println;
 use axsync::Mutex;
 use axsyscall::syscall_handler;
-use mm::load_user_app;
+use loader::load_app_from_disk;
+//use mm::load_user_app;
+use axmono::mm::load_elf_to_mem;
 
 //global_asm!(include_str!("../link_apps.S"));
 
@@ -50,27 +48,32 @@ fn main() {
      *    run_testcase(entry.path().as_str());
      *}
      */
-    for &t in TESTCASES.iter() {
-        run_testcase(t);
-        return;
-    }
+    run_testcase("/hello_world");
+    run_testcase("/hello_world");
+    //run_testcase("/hello_world");
+    /*
+     *for &t in TESTCASES.iter() {
+     *    run_testcase(t);
+     *    return;
+     *}
+     */
     //run_testcase_all();
 }
 
 fn run_testcase(app_path: &str) -> isize {
-    let (entry_vaddr, ustack_top, uspace) = load_user_app(app_path).unwrap();
+    let (entry_vaddr, ustack_top, uspace) =
+        load_elf_to_mem(load_app_from_disk(app_path), Some(&[app_path.into()]), None).unwrap();
     debug!(
         "app_entry: {:?}, app_stack: {:?}, app_aspace: {:?}",
         entry_vaddr, ustack_top, uspace
     );
     let uctx = UspaceContext::new(entry_vaddr.into(), ustack_top, 2333);
-    let user_task = task::spawn_user_task(app_path,Arc::new(Mutex::new(uspace)), uctx);
+    let user_task = axmono::task::spawn_user_task(app_path, Arc::new(Mutex::new(uspace)), uctx);
 
     let exit_code = user_task.join().unwrap();
     info!("app exit with code: {:?}", exit_code);
     exit_code as isize
 }
-
 
 #[register_trap_handler(SYSCALL)]
 fn handle_syscall(tf: &TrapFrame, syscall_num: usize) -> isize {

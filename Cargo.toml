@@ -18,6 +18,7 @@ axsync = {git = "https://github.com/AstranciA/AstrancE.git"}
 axalloc = {git = "https://github.com/AstranciA/AstrancE.git"}
 axmm = {git = "https://github.com/AstranciA/AstrancE.git"}
 axconfig = {git = "https://github.com/AstranciA/AstrancE.git"}
+axmono = {git = "https://github.com/AstranciA/AstrancE.git"}
 #axfeat = {git = "https://github.com/AstranciA/AstrancE.git", features=["fs"]}
 axerrno = "0.1"
 xmas-elf = "0.9.1"

@@ -1,8 +1,6 @@
 use axhal::mem::VirtAddr;
 use xmas_elf::ElfFile;
 
-use crate::elf::ELFInfo;
-
 /// Get the total number of applications.
 pub fn get_num_app() -> usize {
     unsafe extern "C" {

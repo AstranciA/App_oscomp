@@ -16,3 +16,4 @@ axsyscall = { path = ".AstrancE/modules/axsyscall" }
 axlog = { path = ".AstrancE/modules/axlog" }
 axalloc = { path = ".AstrancE/modules/axalloc" }
 axfeat = { path = ".AstrancE/api/axfeat" }
+axmono = { path = ".AstrancE/ulib/axmono" }
