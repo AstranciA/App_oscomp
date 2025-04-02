@@ -37,19 +37,19 @@ use axmono::mm::load_elf_to_mem;
 fn main() {
     println!("Hello, world!");
     let TESTCASES = include!("./testcase_list");
-    /*
-     *let read_dir = axfs::api::read_dir("/").unwrap();
-     *for entry in read_dir {
-     *    let entry = entry.unwrap();
-     *    println!("entry: {:?}", entry);
-     *    if !entry.file_type().is_file() {
-     *        continue;
-     *    }
-     *    run_testcase(entry.path().as_str());
-     *}
-     */
-    run_testcase("/hello_world");
-    run_testcase("/hello_world");
+
+    let read_dir = axfs::api::read_dir("/").unwrap();
+    for entry in read_dir {
+       let entry = entry.unwrap();
+       println!("entry: {:?}", entry);
+       if !entry.file_type().is_file() {
+           continue;
+        }
+        run_testcase(entry.path().as_str());
+    }
+
+    // run_testcase("/hello_world");
+    // run_testcase("/hello_world");
     //run_testcase("/hello_world");
     /*
      *for &t in TESTCASES.iter() {
@@ -61,13 +61,15 @@ fn main() {
 }
 
 fn run_testcase(app_path: &str) -> isize {
-    let (entry_vaddr, ustack_top, uspace) =
+    let (entry_vaddr, ustack_top, uspace, sp_offset) =
         load_elf_to_mem(load_app_from_disk(app_path), Some(&[app_path.into()]), None).unwrap();
     debug!(
-        "app_entry: {:?}, app_stack: {:?}, app_aspace: {:?}",
-        entry_vaddr, ustack_top, uspace
+        "app_entry: {:?}, app_stack: {:?}, app_aspace: {:?}, initial sp: {:?}",
+        entry_vaddr, ustack_top, uspace, ustack_top - sp_offset
     );
-    let uctx = UspaceContext::new(entry_vaddr.into(), ustack_top, 2333);
+
+    let uctx = UspaceContext::new(entry_vaddr.into(), ustack_top - sp_offset, 2333);
+
     let user_task = axmono::task::spawn_user_task(app_path, Arc::new(Mutex::new(uspace)), uctx);
 
     let exit_code = user_task.join().unwrap();

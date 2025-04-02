@@ -426,6 +426,8 @@ dependencies = [
  "linkme",
  "memory_addr",
  "numeric-enum-macro",
+ "page_table_entry",
+ "page_table_multiarch",
  "xmas-elf",
 ]
 
