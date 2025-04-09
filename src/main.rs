@@ -1,6 +1,5 @@
 //#![cfg_attr(feature = "axstd", no_std)]
 //#![cfg_attr(feature = "axstd", no_main)]
-#![feature(new_range_api)]
 #![no_std]
 #![no_main]
 
@@ -38,26 +37,24 @@ fn main() {
     println!("Hello, world!");
     let TESTCASES = include!("./testcase_list");
 
-    let read_dir = axfs::api::read_dir("/").unwrap();
-    for entry in read_dir {
-       let entry = entry.unwrap();
-       println!("entry: {:?}", entry);
-       if !entry.file_type().is_file() {
-           continue;
-        }
-        run_testcase(entry.path().as_str());
-    }
-
-    // run_testcase("/hello_world");
-    // run_testcase("/hello_world");
-    //run_testcase("/hello_world");
     /*
-     *for &t in TESTCASES.iter() {
-     *    run_testcase(t);
-     *    return;
-     *}
+     *    let read_dir = axfs::api::read_dir("/").unwrap();
+     *    for entry in read_dir {
+     *        let entry = entry.unwrap();
+     *        println!("entry: {:?}", entry);
+     *
+     *        if !entry.file_type().is_file() {
+     *            continue;
+     *        }
+     *        run_testcase(entry.path().as_str());
+     *    }
      */
-    //run_testcase_all();
+
+    for &t in TESTCASES.iter() {
+        println!("running testcase: {t}");
+        run_testcase(t);
+        return;
+    }
 }
 
 fn run_testcase(app_path: &str) -> isize {
@@ -65,12 +62,17 @@ fn run_testcase(app_path: &str) -> isize {
         load_elf_to_mem(load_app_from_disk(app_path), Some(&[app_path.into()]), None).unwrap();
     debug!(
         "app_entry: {:?}, app_stack: {:?}, app_aspace: {:?}, initial sp: {:?}",
-        entry_vaddr, ustack_top, uspace, ustack_top - sp_offset
+        entry_vaddr,
+        ustack_top,
+        uspace,
+        ustack_top - sp_offset
     );
 
     let uctx = UspaceContext::new(entry_vaddr.into(), ustack_top - sp_offset, 2333);
 
     let user_task = axmono::task::spawn_user_task(app_path, Arc::new(Mutex::new(uspace)), uctx);
+
+    axtask::spawn_task_by_ref(user_task.clone());
 
     let exit_code = user_task.join().unwrap();
     info!("app exit with code: {:?}", exit_code);
@@ -78,7 +80,7 @@ fn run_testcase(app_path: &str) -> isize {
 }
 
 #[register_trap_handler(SYSCALL)]
-fn handle_syscall(tf: &TrapFrame, syscall_num: usize) -> isize {
+fn handle_syscall(tf: &TrapFrame, syscall_num: usize) -> Option<isize> {
     let args = [
         tf.arg0(),
         tf.arg1(),
@@ -87,26 +89,13 @@ fn handle_syscall(tf: &TrapFrame, syscall_num: usize) -> isize {
         tf.arg4(),
         tf.arg5(),
     ];
-    trace!("Syscall: {:?}, args: {:?}", syscall_num, args);
-    let result = syscall_handler(syscall_num, args);
-    //let result = unsafe { catch_unwind(syscall_handler, (syscall_num, args), |a, b| -1) }as isize;
-    //let result = Ok(result);
-    let result: isize = result.into();
 
-    trace!("syscall_handler result: {:}", result);
+    debug!("Syscall: {:?}, args: {:?}", syscall_num, args);
+    let result = match syscall_handler(syscall_num, args) {
+        Ok(result) => Some(result.into()),
+        Err(e) => None,
+    };
+
     result
 }
 
-/// If the target architecture requires it, the kernel portion of the address
-/// space will be copied to the user address space.
-/// TODO: unsafe. using trampoline instead
-fn copy_from_kernel(aspace: &mut AddrSpace) -> AxResult {
-    if !cfg!(target_arch = "aarch64") && !cfg!(target_arch = "loongarch64") {
-        // ARMv8 (aarch64) and LoongArch64 use separate page tables for user space
-        // (aarch64: TTBR0_EL1, LoongArch64: PGDL), so there is no need to copy the
-        // kernel portion to the user page table.
-        aspace.copy_mappings_from(&kernel_aspace().lock())?;
-    }
-
-    Ok(())
-}

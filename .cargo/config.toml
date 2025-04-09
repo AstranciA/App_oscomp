@@ -17,3 +17,8 @@ axlog = { path = ".AstrancE/modules/axlog" }
 axalloc = { path = ".AstrancE/modules/axalloc" }
 axfeat = { path = ".AstrancE/api/axfeat" }
 axmono = { path = ".AstrancE/ulib/axmono" }
+[patch.crates-io]
+page_table_multiarch = { path = ".AstrancE/crates/page_table_multiarch/page_table_multiarch" }
+page_table_entry = { path = ".AstrancE/crates/page_table_multiarch/page_table_entry" }
+memory_set = { path = ".AstrancE/crates/axmm_crates/memory_set" }
+memory_addr = { path = ".AstrancE/crates/axmm_crates/memory_addr" }

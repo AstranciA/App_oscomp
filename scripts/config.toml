@@ -17,3 +17,8 @@ axlog = { path = "%AX_ROOT%/modules/axlog" }
 axalloc = { path = "%AX_ROOT%/modules/axalloc" }
 axfeat = { path = "%AX_ROOT%/api/axfeat" }
 axmono = { path = "%AX_ROOT%/ulib/axmono" }
+[patch.crates-io]
+page_table_multiarch = { path = "%AX_ROOT%/crates/page_table_multiarch/page_table_multiarch" }
+page_table_entry = { path = "%AX_ROOT%/crates/page_table_multiarch/page_table_entry" }
+memory_set = { path = "%AX_ROOT%/crates/axmm_crates/memory_set" }
+memory_addr = { path = "%AX_ROOT%/crates/axmm_crates/memory_addr" }

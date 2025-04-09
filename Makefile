@@ -1,4 +1,4 @@
-AX_MAKE_DEFAULTS ?= BLK=y FEATURES=lwext4_rs,fp_simd,fs
+AX_MAKE_DEFAULTS ?= BLK=y FEATURES=lwext4_rs,fp_simd,fs, DISK_IMG=disk2.img
 
 TOOLCHAIN_DIR ?= ../toolchains
 AX_SOURCE ?= git:https://github.com/AstranciA/AstrancE.git
