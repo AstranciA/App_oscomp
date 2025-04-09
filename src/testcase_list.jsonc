@@ -1,0 +1,51 @@
+// This file is included in main.rs as an expression.
+// file_type=jsonc to enable IDE format and comment
+/* passed
+[
+    "/fork",
+    "/wait",
+    "/yield",
+    "/clone",
+    "/execve",
+    "/exit",
+    "/sleep",
+]
+*/
+// #####################################################
+// to be test
+[
+  "/sleep"
+]
+// ####################################################
+/* failed
+[
+
+  "/close",
+  "/fstat",
+  "/getpid",
+  "/mkdir_",
+  "/munmap",
+  "/pipe",
+  "/test_echo",
+  "/uname",
+  "/waitpid",
+  "/chdir",
+  "/dup2",
+  "/getcwd",
+  "/getppid",
+  "/mmap",
+  "/openat",
+  "/read",
+  "/times",
+  "/unlink",
+  "/write",
+  "/dup",
+  "/getdents",
+  "/gettimeofday",
+  "/open",
+
+  "/mount",
+  "/umount",
+  "/brk",
+]
+*/

@@ -12,30 +12,26 @@ extern crate axlog;
 #[macro_use]
 extern crate alloc;
 
-mod loader;
-
 use alloc::borrow::Cow;
 use alloc::string::ToString;
 use alloc::sync::Arc;
 use axerrno::AxResult;
-use axhal::arch::TrapFrame;
-use axhal::trap::{SYSCALL, register_trap_handler};
-use axhal::{arch::UspaceContext, mem::VirtAddr};
+use axhal::{
+    arch::{TrapFrame, UspaceContext},
+    mem::VirtAddr,
+    trap::{SYSCALL, register_trap_handler},
+};
 use axmm::{AddrSpace, kernel_aspace};
+use axmono::{loader::load_app_from_disk, mm::load_elf_to_mem};
 use axstd::println;
 use axsync::Mutex;
 use axsyscall::syscall_handler;
-use loader::load_app_from_disk;
-//use mm::load_user_app;
-use axmono::mm::load_elf_to_mem;
-
-//global_asm!(include_str!("../link_apps.S"));
 
 //#[cfg_attr(feature = "axstd", unsafe(no_mangle))]
 #[unsafe(no_mangle)]
 fn main() {
-    println!("Hello, world!");
-    let TESTCASES = include!("./testcase_list");
+    // file_type=jsonc to enable IDE format and comment
+    let TESTCASES = include!("./testcase_list.jsonc");
 
     /*
      *    let read_dir = axfs::api::read_dir("/").unwrap();
@@ -53,22 +49,24 @@ fn main() {
     for &t in TESTCASES.iter() {
         println!("running testcase: {t}");
         run_testcase(t);
-        return;
     }
 }
 
 fn run_testcase(app_path: &str) -> isize {
-    let (entry_vaddr, ustack_top, uspace, sp_offset) =
-        load_elf_to_mem(load_app_from_disk(app_path), Some(&[app_path.into()]), None).unwrap();
+    let (entry_vaddr, user_stack_base, uspace) = load_elf_to_mem(
+        load_app_from_disk(app_path).unwrap(),
+        Some(&[app_path.into()]),
+        None,
+    )
+    .unwrap();
     debug!(
-        "app_entry: {:?}, app_stack: {:?}, app_aspace: {:?}, initial sp: {:?}",
+        "app_entry: {:?}, app_stack: {:?}, app_aspace: {:?}",
         entry_vaddr,
-        ustack_top,
+        user_stack_base,
         uspace,
-        ustack_top - sp_offset
     );
 
-    let uctx = UspaceContext::new(entry_vaddr.into(), ustack_top - sp_offset, 2333);
+    let uctx = UspaceContext::new(entry_vaddr.into(), user_stack_base, 2333);
 
     let user_task = axmono::task::spawn_user_task(app_path, Arc::new(Mutex::new(uspace)), uctx);
 
@@ -98,4 +96,3 @@ fn handle_syscall(tf: &TrapFrame, syscall_num: usize) -> Option<isize> {
 
     result
 }
-
