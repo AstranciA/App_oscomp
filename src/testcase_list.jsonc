@@ -9,43 +9,42 @@
     "/execve",
     "/exit",
     "/sleep",
+  "/read",
+  "/brk",
+  "/mmap",
+  "/mkdir_",
+  "/chdir",
+  "/munmap",
+  "/close",
+  "/getpid",
+  "/pipe",
+  "/test_echo",
+  "/uname",
+  "/waitpid",
+  "/dup2",
+  "/getcwd",
+  "/getppid",
+  "/openat",
+  "/times",
 ]
 */
 // #####################################################
 // to be test
 [
-  "/sleep"
+  "/fstat",
+  "/brk",
+  "/open",
+  "/write",
+  "/dup",
 ]
 // ####################################################
 /* failed
 [
 
-  "/close",
-  "/fstat",
-  "/getpid",
-  "/mkdir_",
-  "/munmap",
-  "/pipe",
-  "/test_echo",
-  "/uname",
-  "/waitpid",
-  "/chdir",
-  "/dup2",
-  "/getcwd",
-  "/getppid",
-  "/mmap",
-  "/openat",
-  "/read",
-  "/times",
-  "/unlink",
-  "/write",
-  "/dup",
   "/getdents",
   "/gettimeofday",
-  "/open",
-
+  "/unlink",
   "/mount",
   "/umount",
-  "/brk",
 ]
 */
