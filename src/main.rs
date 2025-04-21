@@ -25,13 +25,12 @@ use axmm::{AddrSpace, kernel_aspace};
 use axmono::{loader::load_app_from_disk, mm::load_elf_to_mem};
 use axstd::println;
 use axsync::Mutex;
-use axsyscall::syscall_handler;
 
 //#[cfg_attr(feature = "axstd", unsafe(no_mangle))]
 #[unsafe(no_mangle)]
 fn main() {
     // file_type=jsonc to enable IDE format and comment
-    let TESTCASES = include!("./testcase_list.jsonc");
+    let TESTCASES = include!("./testcase_osc.jsonc");
 
     /*
      *    let read_dir = axfs::api::read_dir("/").unwrap();
@@ -45,9 +44,11 @@ fn main() {
      *        run_testcase(entry.path().as_str());
      *    }
      */
-
+    // run_testcase("/musl/busybox");
+    
     for &t in TESTCASES.iter() {
-        println!("running testcase: {t}");
+        let name = t.split_at(12).1;
+        println!("Testing {name}:");
         run_testcase(t);
     }
 }
@@ -55,7 +56,7 @@ fn main() {
 fn run_testcase(app_path: &str) -> isize {
     let (entry_vaddr, user_stack_base, uspace) = load_elf_to_mem(
         load_app_from_disk(app_path).unwrap(),
-        Some(&[app_path.into()]),
+        Some(&[app_path.into(),"ls".into()]),
         None,
     )
     .unwrap();
@@ -77,22 +78,3 @@ fn run_testcase(app_path: &str) -> isize {
     exit_code as isize
 }
 
-#[register_trap_handler(SYSCALL)]
-fn handle_syscall(tf: &TrapFrame, syscall_num: usize) -> Option<isize> {
-    let args = [
-        tf.arg0(),
-        tf.arg1(),
-        tf.arg2(),
-        tf.arg3(),
-        tf.arg4(),
-        tf.arg5(),
-    ];
-
-    debug!("Syscall: {:?}, args: {:?}", syscall_num, args);
-    let result = match syscall_handler(syscall_num, args) {
-        Ok(result) => Some(result.into()),
-        Err(e) => None,
-    };
-
-    result
-}

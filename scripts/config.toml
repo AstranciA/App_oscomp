@@ -1,5 +1,5 @@
 [net]
-offline=true
+offline=false
 [patch.'https://github.com/AstranciA/AstrancE.git']
 axstd = { path = "%AX_ROOT%/ulib/axstd" }
 arceos_posix_api = { path = "%AX_ROOT%/api/arceos_posix_api" }
@@ -22,3 +22,5 @@ page_table_multiarch = { path = "%AX_ROOT%/crates/page_table_multiarch/page_tabl
 page_table_entry = { path = "%AX_ROOT%/crates/page_table_multiarch/page_table_entry" }
 memory_set = { path = "%AX_ROOT%/crates/axmm_crates/memory_set" }
 memory_addr = { path = "%AX_ROOT%/crates/axmm_crates/memory_addr" }
+[profile.release]
+debug = 2

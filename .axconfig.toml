@@ -1,14 +1,19 @@
 # Architecture identifier.
 arch = "riscv64" # str
+logo = "AstrancE.png"
+nodename = "AstrancR"
 # Platform identifier.
 platform = "riscv64-qemu-virt" # str
+release = "0.1"
 # Number of CPUs
 smp = 1 # uint
+sysname = "AstrancE"
 # Stack size of each task.
 task-stack-size = 0x40000 # uint
 # Number of timer ticks per second (Hz). A timer tick may contain several timer
 # interrupts.
 ticks-per-sec = 100 # uint
+version = "0.1"
 
 #
 # Device specifications
