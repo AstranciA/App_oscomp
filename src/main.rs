@@ -58,9 +58,11 @@ fn main() {
      *        run_testcase(entry.path().as_str());
      *    }
      */
-
+    // run_testcase("/musl/busybox");
+    
     for &t in TESTCASES.iter() {
-        println!("running testcase: {t}");
+        let name = t.split_at(12).1;
+        println!("Testing {name}:");
         run_testcase(t);
     }
 }
@@ -68,7 +70,7 @@ fn main() {
 fn run_testcase(app_path: &str) -> isize {
     let (entry_vaddr, user_stack_base, uspace) = load_elf_to_mem(
         load_app_from_disk(app_path).unwrap(),
-        Some(&[app_path.into()]),
+        Some(&[app_path.into(),"ls".into()]),
         None,
     )
     .unwrap();

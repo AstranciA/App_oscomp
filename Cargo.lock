@@ -141,6 +141,8 @@ dependencies = [
  "axconfig",
  "axerrno",
  "axfeat",
+ "axfs",
+ "axfs_vfs",
  "axhal",
  "axio",
  "axlog",
@@ -225,10 +227,12 @@ dependencies = [
 name = "axdriver"
 version = "0.1.0"
 dependencies = [
+ "axalloc",
  "axconfig",
  "axdriver_base",
  "axdriver_block",
  "axdriver_pci",
+ "axdriver_virtio",
  "axhal",
  "cfg-if",
  "crate_interface",
@@ -258,6 +262,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "axdriver_virtio"
+version = "0.1.2"
+source = "git+https://github.com/arceos-org/axdriver_crates.git?tag=v0.1.2#84eb2170f865e6fa29b78995a86f4fcdcede63df"
+dependencies = [
+ "axdriver_base",
+ "axdriver_block",
+ "virtio-drivers",
+]
+
+[[package]]
 name = "axerrno"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -271,6 +285,8 @@ name = "axfeat"
 version = "0.1.0"
 dependencies = [
  "axalloc",
+ "axdriver",
+ "axfs",
  "axhal",
  "axlog",
  "axruntime",
@@ -395,6 +411,7 @@ dependencies = [
  "axconfig",
  "axerrno",
  "axhal",
+ "bitflags 2.9.0",
  "kspin",
  "lazyinit",
  "log",
@@ -417,6 +434,7 @@ dependencies = [
  "axmm",
  "axns",
  "axsync",
+ "axsyscall",
  "axtask",
  "bitflags 2.9.0",
  "crate_interface",
@@ -481,7 +499,14 @@ name = "axsyscall"
 version = "0.1.0"
 dependencies = [
  "arceos_posix_api",
+ "axconfig",
  "axerrno",
+ "axfs",
+ "axhal",
+ "axlog",
+ "axmm",
+ "axtask",
+ "linkme",
  "syscalls",
 ]
 
@@ -1351,8 +1376,7 @@ dependencies = [
 [[package]]
 name = "syscalls"
 version = "0.6.18"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "43d0e35dc7d73976a53c7e6d7d177ef804a0c0ee774ec77bcc520c2216fd7cbe"
+source = "git+https://github.com/jasonwhite/syscalls.git#92624de3dee33427fde46da083809d7e86a721ec"
 
 [[package]]
 name = "timer_list"

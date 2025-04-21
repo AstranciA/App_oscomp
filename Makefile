@@ -1,16 +1,18 @@
-AX_MAKE_DEFAULTS ?= BLK=y FEATURES=lwext4_rs,fp_simd,fs, DISK_IMG=disk2.img
+AX_MAKE_DEFAULTS ?= BLK=y FEATURES=lwext4_rs,fp_simd,fs
+DISK_IMG ?= $(PWD)/disk.img
 
 TOOLCHAIN_DIR ?= ../toolchains
 AX_SOURCE ?= git:https://github.com/AstranciA/AstrancE.git
-AX_ROOT ?= .AstrancE
+AX_ROOT ?= ../AstrancE
 T_ROOT ?= $(PWD)/testcases
 T ?= nimbos
-ARCH ?= x86_64
+ARCH = x86_64
 LOG ?= off
 #AX_TESTCASES_LIST=$(shell cat ./apps/$(AX_TESTCASE)/testcase_list | tr '\n' ',')
 FEATURES ?= fp_simd
 
 TESTCASE := $(T_ROOT)/$(T)
+$(echo $(ARCH))
 
 RUSTDOCFLAGS := -Z unstable-options --enable-index-page -D rustdoc::broken_intra_doc_links -D missing-docs
 EXTRA_CONFIG ?= $(PWD)/configs/$(ARCH).toml
@@ -19,6 +21,7 @@ ifneq ($(filter $(MAKECMDGOALS),doc_check_missing),) # make doc_check_missing
 else ifeq ($(filter $(MAKECMDGOALS),clean user_apps ax_root),) # Not make clean, user_apps, ax_root
     export AX_TESTCASES_LIST
 endif
+
 
 DIR := $(shell basename $(PWD))
 OUT_ELF := $(DIR)_$(ARCH)-qemu-virt.elf
@@ -43,7 +46,23 @@ endif
 
 include scripts/make/oscomp.mk
 
-all: env oscomp_build
+all_1: env oscomp_build
+
+all: kernel-rv kernel-la
+
+kernel-rv:
+	@echo "Building RISC-V kernel..."
+	@$(MAKE) ARCH=riscv64 LOG=$(LOG) FEATURES=lwext4_rs,fs BLK=y BUS=mmio defconfig
+	@$(MAKE) build ARCH=riscv64 LOG=$(LOG) FEATURES=lwext4_rs,fs BLK=y BUS=mmio
+	mv ./App_oscomp_riscv64-qemu-virt.bin ./kernel-rv.bin
+	mv ./App_oscomp_riscv64-qemu-virt.elf ./kernel-rv.elf
+
+kernel-la:
+	@echo "Building LoongArch kernel..."
+	@$(MAKE) ARCH=loongarch64 LOG=$(LOG) FEATURES=lwext4_rs,fs BLK=y BUS=pci defconfig
+	@$(MAKE) build ARCH=loongarch64 LOG=$(LOG) FEATURES=lwext4_rs,fs BLK=y BUS=pci
+	mv ./App_oscomp_loongarch64-qemu-virt.elf ./kernel-la.elf
+	mv ./App_oscomp_loongarch64-qemu-virt.bin ./kernel-la.bin
 
 env:
 	export PATH=$(TOOLCHAIN_DIR)/bin:$(PATH)
@@ -73,7 +92,7 @@ test: defconfig
 	@./scripts/app_test.sh
 
 defconfig build run justrun debug disasm:env ax_root
-	@make -C $(AX_ROOT) A=$(PWD) EXTRA_CONFIG=$(EXTRA_CONFIG) $(AX_MAKE_DEFAULTS) $@
+	@make -C $(AX_ROOT) A=$(PWD) EXTRA_CONFIG=$(EXTRA_CONFIG) DISK_IMG=$(DISK_IMG) $(AX_MAKE_DEFAULTS) $@
 
 clean: ax_root
 	@make -C $(AX_ROOT) A=$(PWD) ARCH=$(ARCH) clean
@@ -86,4 +105,3 @@ doc_check_missing:
 	@cargo doc --no-deps --all-features --workspace
 
 .PHONY: all ax_root build run justrun debug disasm clean test_build
-
