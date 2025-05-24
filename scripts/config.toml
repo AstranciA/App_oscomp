@@ -1,5 +1,6 @@
 [net]
-offline=false
+offline=true
+git-fetch-with-cli=true
 [patch.'https://github.com/AstranciA/AstrancE.git']
 axstd = { path = "%AX_ROOT%/ulib/axstd" }
 arceos_posix_api = { path = "%AX_ROOT%/api/arceos_posix_api" }
@@ -8,7 +9,7 @@ axmm = { path = "%AX_ROOT%/modules/axmm" }
 axtask = { path = "%AX_ROOT%/modules/axtask" }
 axsync = { path = "%AX_ROOT%/modules/axsync" }
 axruntime = { path = "%AX_ROOT%/modules/axruntime" }
-axns = { path = "%AX_ROOT%/modules/axns" }
+#axns = { path = "%AX_ROOT%/modules/axns" }
 axfs = { path = "%AX_ROOT%/modules/axfs" }
 axconfig = { path = "%AX_ROOT%/modules/axconfig" }
 acbat = { path = "%AX_ROOT%/crates/acbat" }
@@ -22,5 +23,12 @@ page_table_multiarch = { path = "%AX_ROOT%/crates/page_table_multiarch/page_tabl
 page_table_entry = { path = "%AX_ROOT%/crates/page_table_multiarch/page_table_entry" }
 memory_set = { path = "%AX_ROOT%/crates/axmm_crates/memory_set" }
 memory_addr = { path = "%AX_ROOT%/crates/axmm_crates/memory_addr" }
+axfs_vfs = { path = "%AX_ROOT%/crates/axfs_crates/axfs_vfs" }
+axfs_devfs = { path = "%AX_ROOT%/crates/axfs_crates/axfs_devfs" }
+axfs_ramfs = { path = "%AX_ROOT%/crates/axfs_crates/axfs_ramfs" }
+lwext4_rust = { path = "%AX_ROOT%/crates/lwext4_rust" }
+
+[patch."https://github.com/AstranciA/fast-trap"]
+fast-trap = { path = "%AX_ROOT%/crates/fast-trap/fast-trap" }
 [profile.release]
 debug = 2
