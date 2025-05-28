@@ -13,14 +13,31 @@ extern crate alloc;
 use alloc::string::String;
 use alloc::string::ToString;
 use alloc::sync::Arc;
+use axfs::DISKS;
+use axfs::Disk;
+use axfs::ROOT_DIR;
+use axfs::api::create_dir;
+use axfs::api::read_dir;
 use axhal::arch::UspaceContext;
 use axmono::{loader::load_elf_from_disk, mm::load_elf_to_mem};
 use axsync::Mutex;
+use lazyinit::LazyInit;
 
 //#[cfg_attr(feature = "axstd", unsafe(no_mangle))]
 #[unsafe(no_mangle)]
 fn main() {
+    mount_testsuite();
+
+    for d in read_dir("/").unwrap() {
+        let d = d.unwrap();
+        warn!("{:?}", d.file_name());
+    }
+    for d in read_dir(TS_MOUNTPOINT_).unwrap() {
+        let d = d.unwrap();
+        warn!("{:?}", d.file_name());
+    }
     //run_testcode("libctest", "musl");
+    //run_testcode("busybox", "musl");
     /*
      *run_testcase(
      *    "/riscv/musl/busybox",
@@ -39,7 +56,7 @@ fn main() {
             "runtest.exe".into(),
             "-w".into(),
             "entry-static.exe".into(),
-            "pthread_cancel_points".into(),
+            "pthread_cancel".into(),
         ]),
     );
 }
@@ -80,4 +97,20 @@ fn run_testcase(app_path: &str, pwd: &str, args: Option<&[String]>) -> isize {
     let exit_code = user_task.join().unwrap();
     info!("app exit with code: {:?}", exit_code);
     exit_code as isize
+}
+
+const TS_MOUNTPOINT_: &str = "/ts/";
+const TS_MOUNTPOINT: &str = "/ts";
+
+fn mount_testsuite() {
+    let (ts_devname, ts_disk) = DISKS.lock().pop_first().expect("no testcase disk");
+    create_dir(TS_MOUNTPOINT);
+    static TS_FS: LazyInit<Arc<axfs::fs::lwext4_rust::Ext4FileSystem<Disk>>> = LazyInit::new();
+    TS_FS.init_once(Arc::new(axfs::fs::lwext4_rust::Ext4FileSystem::new(
+        ts_disk,
+        "disk",
+        &TS_MOUNTPOINT_,
+    )));
+
+    ROOT_DIR.mount(&TS_MOUNTPOINT, TS_FS.clone()).unwrap();
 }

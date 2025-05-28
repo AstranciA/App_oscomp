@@ -45,6 +45,7 @@ syscalls = { git = "https://github.com/jasonwhite/syscalls.git", default-feature
   "loongarch64",
   "riscv64",
 ] }
+lazyinit = "0.2"
 [build-dependencies]
 acbat = { git = "https://github.com/AstranciA/AstrancE.git" }
 toml_edit = "0.22.24"

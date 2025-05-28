@@ -1,5 +1,7 @@
 AX_MAKE_DEFAULTS ?= BLK=y FEATURES=lwext4_rs,fp_simd,fs
 DISK_IMG ?= $(PWD)/disk.img
+ROOTFS_DISK ?= 0
+ROOTFS ?=  # 默认为空，表示不指定 rootfs 源
 
 TOOLCHAIN_DIR ?= ../toolchains
 AX_SOURCE ?= git:https://github.com/AstranciA/AstrancE.git
@@ -45,6 +47,7 @@ else
 endif
 
 include scripts/make/oscomp.mk
+include scripts/make/disk.mk
 
 all_1: env oscomp_build
 
@@ -53,6 +56,7 @@ all: kernel-rv kernel-la
 kernel-rv:
 	@echo "Building RISC-V kernel..."
 	@$(MAKE) ARCH=riscv64 LOG=$(LOG) FEATURES=lwext4_rs,fs BLK=y BUS=mmio defconfig
+	@$(MAKE) disk_img DISK_SOURCES="$(PWD)/rootfs/$(ARCH):disk.img:ext4" DISK_SIZE_MB=50
 	@$(MAKE) build ARCH=riscv64 LOG=$(LOG) FEATURES=lwext4_rs,fs BLK=y BUS=mmio
 	mv ./App_oscomp_riscv64-qemu-virt.bin ./kernel-rv.bin
 	mv ./App_oscomp_riscv64-qemu-virt.elf ./kernel-rv.elf
@@ -60,6 +64,7 @@ kernel-rv:
 kernel-la:
 	@echo "Building LoongArch kernel..."
 	@$(MAKE) ARCH=loongarch64 LOG=$(LOG) FEATURES=lwext4_rs,fs BLK=y BUS=pci defconfig
+	@$(MAKE) disk_img DISK_SOURCES="$(PWD)/rootfs/$(ARCH):disk.img:ext4" DISK_SIZE_MB=50
 	@$(MAKE) build ARCH=loongarch64 LOG=$(LOG) FEATURES=lwext4_rs,fs BLK=y BUS=pci
 	mv ./App_oscomp_loongarch64-qemu-virt.elf ./kernel-la.elf
 	mv ./App_oscomp_loongarch64-qemu-virt.bin ./kernel-la.bin
@@ -76,7 +81,7 @@ fetch_ax:
 
 ax_root:
 	@./scripts/set_ax_root.sh $(AX_ROOT)
-	@make -C $(AX_ROOT) disk_img
+	#@make -C $(AX_ROOT) disk_img
 
 testcase:
 	#@make -C $(TESTCASE) ARCH=$(ARCH) build
@@ -92,7 +97,7 @@ test: defconfig
 	@./scripts/app_test.sh
 
 defconfig build run justrun debug disasm:env ax_root
-	@make -C $(AX_ROOT) A=$(PWD) EXTRA_CONFIG=$(EXTRA_CONFIG) DISK_IMG=$(DISK_IMG) $(AX_MAKE_DEFAULTS) $@
+	@make -C $(AX_ROOT) A=$(PWD) EXTRA_CONFIG=$(EXTRA_CONFIG) DISK_IMG=$(DISK_IMG) ROOTFS_DISK=$(ROOTFS_DISK) $(AX_MAKE_DEFAULTS) $@
 
 clean: ax_root
 	@make -C $(AX_ROOT) A=$(PWD) ARCH=$(ARCH) clean

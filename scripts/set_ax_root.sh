@@ -1,4 +1,4 @@
-#/bin/bash
+#36M	sdcard-rv.img/bin/bash
 
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 <AX_SOURCE_ROOT> <AX_ROOT>"
