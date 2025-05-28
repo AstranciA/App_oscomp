@@ -37,34 +37,36 @@ fn main() {
         warn!("{:?}", d.file_name());
     }
     //run_testcode("libctest", "musl");
-    //run_testcode("busybox", "musl");
+    //run_testcode("lua", "musl");
+    run_testcase(
+        "/usr/bin/busybox",
+        "/ts/riscv/musl",
+        Some(&[
+            "/usr/bin/busybox".into(),
+            "ash".into(),
+            "test.sh".into(),
+            "date.lua".into(),
+        ]),
+    );
     /*
      *run_testcase(
-     *    "/riscv/musl/busybox",
-     *    "/riscv/musl",
+     *    "/ts/riscv/musl/runtest.exe",
+     *    "/ts/riscv/musl",
      *    Some(&[
-     *        "/riscv/musl/busybox".into(),
-     *        "ash".into(),
-     *        "/riscv/musl/libc-bench".into(),
+     *        "runtest.exe".into(),
+     *        "-w".into(),
+     *        "entry-static.exe".into(),
+     *        "pthread_cancel".into(),
      *    ]),
      *);
      */
-    run_testcase(
-        "/riscv/musl/runtest.exe",
-        "/riscv/musl",
-        Some(&[
-            "runtest.exe".into(),
-            "-w".into(),
-            "entry-static.exe".into(),
-            "pthread_cancel".into(),
-        ]),
-    );
 }
 
 fn run_testcode(name: &str, c_lib: &str) {
-    let shell = "/riscv/musl/busybox";
-    let pwd = format!("/riscv/{}", c_lib);
-    let testcode = format!("/riscv/{}/{}_testcode.sh", c_lib, name);
+    //let shell = "/usr/bin/busybox";
+    let shell = "/usr/bin/busybox";
+    let pwd = format!("/ts/riscv/{}", c_lib);
+    let testcode = format!("/ts/riscv/{}/{}_testcode.sh", c_lib, name);
     run_testcase(
         shell,
         pwd.as_str(),
