@@ -97,7 +97,7 @@ test: defconfig
 	@./scripts/app_test.sh
 
 defconfig build run justrun debug disasm:env ax_root
-	@make -C $(AX_ROOT) A=$(PWD) EXTRA_CONFIG=$(EXTRA_CONFIG) DISK_IMG=$(DISK_IMG) ROOTFS_DISK=$(ROOTFS_DISK) $(AX_MAKE_DEFAULTS) $@
+	@make -C $(AX_ROOT) A=$(PWD) EXTRA_CONFIG=$(EXTRA_CONFIG) MEM=1G DISK_IMG=$(DISK_IMG) ROOTFS_DISK=$(ROOTFS_DISK) $(AX_MAKE_DEFAULTS) $@
 
 clean: ax_root
 	@make -C $(AX_ROOT) A=$(PWD) ARCH=$(ARCH) clean
