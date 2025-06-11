@@ -49,3 +49,7 @@ lazyinit = "0.2"
 [build-dependencies]
 acbat = { git = "https://github.com/AstranciA/AstrancE.git" }
 toml_edit = "0.22.24"
+
+[patch.crates-io]
+cty = { git = "https://github.com/MukioXun/cty.git"}
+

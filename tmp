@@ -1,0 +1,372 @@
+aa-oscomp v0.1.0 (/root/App_oscomp)
+├── arceos_posix_api v0.1.0 (/root/AstrancE/api/arceos_posix_api)
+│   ├── axalloc v0.1.0 (/root/AstrancE/modules/axalloc)
+│   │   ├── allocator v0.1.1 (https://github.com/arceos-org/allocator.git?tag=v0.1.1#1d5b7a1b)
+│   │   │   ├── bitmap-allocator v0.2.0
+│   │   │   │   └── bit_field v0.10.2
+│   │   │   ├── cfg-if v1.0.0
+│   │   │   └── rlsf v0.2.1
+│   │   │       ├── cfg-if v1.0.0
+│   │   │       ├── const-default v1.0.0
+│   │   │       ├── libc v0.2.171
+│   │   │       └── svgbobdoc v0.3.0 (proc-macro)
+│   │   │           ├── base64 v0.13.1
+│   │   │           ├── proc-macro2 v1.0.94
+│   │   │           │   └── unicode-ident v1.0.18
+│   │   │           ├── quote v1.0.40
+│   │   │           │   └── proc-macro2 v1.0.94 (*)
+│   │   │           ├── syn v1.0.109
+│   │   │           │   ├── proc-macro2 v1.0.94 (*)
+│   │   │           │   ├── quote v1.0.40 (*)
+│   │   │           │   └── unicode-ident v1.0.18
+│   │   │           └── unicode-width v0.1.14
+│   │   ├── axerrno v0.1.0
+│   │   │   └── log v0.4.21
+│   │   ├── cfg-if v1.0.0
+│   │   ├── kspin v0.1.0
+│   │   │   ├── cfg-if v1.0.0
+│   │   │   └── kernel_guard v0.1.2
+│   │   │       ├── cfg-if v1.0.0
+│   │   │       └── crate_interface v0.1.4 (proc-macro)
+│   │   │           ├── proc-macro2 v1.0.94 (*)
+│   │   │           ├── quote v1.0.40 (*)
+│   │   │           └── syn v2.0.100
+│   │   │               ├── proc-macro2 v1.0.94 (*)
+│   │   │               ├── quote v1.0.40 (*)
+│   │   │               └── unicode-ident v1.0.18
+│   │   ├── log v0.4.21
+│   │   └── memory_addr v0.3.2 (/root/AstrancE/crates/axmm_crates/memory_addr)
+│   ├── axconfig v0.1.0 (/root/AstrancE/modules/axconfig)
+│   │   └── axconfig-gen-macros v0.1.0 (proc-macro)
+│   │       ├── axconfig-gen v0.1.0
+│   │       │   ├── clap v4.5.34
+│   │       │   │   ├── clap_builder v4.5.34
+│   │       │   │   │   ├── anstream v0.6.18
+│   │       │   │   │   │   ├── anstyle v1.0.10
+│   │       │   │   │   │   ├── anstyle-parse v0.2.6
+│   │       │   │   │   │   │   └── utf8parse v0.2.2
+│   │       │   │   │   │   ├── anstyle-query v1.1.2
+│   │       │   │   │   │   ├── colorchoice v1.0.3
+│   │       │   │   │   │   ├── is_terminal_polyfill v1.70.1
+│   │       │   │   │   │   └── utf8parse v0.2.2
+│   │       │   │   │   ├── anstyle v1.0.10
+│   │       │   │   │   ├── clap_lex v0.7.4
+│   │       │   │   │   └── strsim v0.11.1
+│   │       │   │   └── clap_derive v4.5.32 (proc-macro)
+│   │       │   │       ├── heck v0.5.0
+│   │       │   │       ├── proc-macro2 v1.0.94 (*)
+│   │       │   │       ├── quote v1.0.40 (*)
+│   │       │   │       └── syn v2.0.100 (*)
+│   │       │   └── toml_edit v0.22.24
+│   │       │       ├── indexmap v2.8.0
+│   │       │       │   ├── equivalent v1.0.2
+│   │       │       │   └── hashbrown v0.15.2
+│   │       │       ├── toml_datetime v0.6.8
+│   │       │       └── winnow v0.7.4
+│   │       ├── proc-macro2 v1.0.94 (*)
+│   │       ├── quote v1.0.40 (*)
+│   │       └── syn v2.0.100 (*)
+│   ├── axerrno v0.1.0 (*)
+│   ├── axfeat v0.1.0 (/root/AstrancE/api/axfeat)
+│   │   ├── axalloc v0.1.0 (/root/AstrancE/modules/axalloc) (*)
+│   │   ├── axhal v0.1.0 (/root/AstrancE/modules/axhal)
+│   │   │   ├── axalloc v0.1.0 (/root/AstrancE/modules/axalloc) (*)
+│   │   │   ├── axconfig v0.1.0 (/root/AstrancE/modules/axconfig) (*)
+│   │   │   ├── axlog v0.1.0 (/root/AstrancE/modules/axlog)
+│   │   │   │   ├── cfg-if v1.0.0
+│   │   │   │   ├── crate_interface v0.1.4 (proc-macro) (*)
+│   │   │   │   ├── kspin v0.1.0 (*)
+│   │   │   │   └── log v0.4.21
+│   │   │   ├── bitflags v2.9.0
+│   │   │   ├── cfg-if v1.0.0
+│   │   │   ├── handler_table v0.1.2
+│   │   │   ├── int_ratio v0.1.1
+│   │   │   ├── kernel_guard v0.1.2 (*)
+│   │   │   ├── kspin v0.1.0 (*)
+│   │   │   ├── lazyinit v0.2.1
+│   │   │   ├── linkme v0.3.32
+│   │   │   │   └── linkme-impl v0.3.32 (proc-macro)
+│   │   │   │       ├── proc-macro2 v1.0.94 (*)
+│   │   │   │       ├── quote v1.0.40 (*)
+│   │   │   │       └── syn v2.0.100 (*)
+│   │   │   ├── log v0.4.21
+│   │   │   ├── memory_addr v0.3.2 (/root/AstrancE/crates/axmm_crates/memory_addr)
+│   │   │   ├── page_table_entry v0.5.4 (/root/AstrancE/crates/page_table_multiarch/page_table_entry)
+│   │   │   │   ├── bitflags v2.9.0
+│   │   │   │   ├── memory_addr v0.3.2 (/root/AstrancE/crates/axmm_crates/memory_addr)
+│   │   │   │   └── x86_64 v0.15.2
+│   │   │   │       ├── bit_field v0.10.2
+│   │   │   │       ├── bitflags v2.9.0
+│   │   │   │       ├── rustversion v1.0.20 (proc-macro)
+│   │   │   │       └── volatile v0.4.6
+│   │   │   ├── page_table_multiarch v0.5.4 (/root/AstrancE/crates/page_table_multiarch/page_table_multiarch)
+│   │   │   │   ├── log v0.4.21
+│   │   │   │   ├── memory_addr v0.3.2 (/root/AstrancE/crates/axmm_crates/memory_addr)
+│   │   │   │   ├── page_table_entry v0.5.4 (/root/AstrancE/crates/page_table_multiarch/page_table_entry) (*)
+│   │   │   │   └── x86 v0.52.0
+│   │   │   │       ├── bit_field v0.10.2
+│   │   │   │       ├── bitflags v1.3.2
+│   │   │   │       └── raw-cpuid v10.7.0
+│   │   │   │           └── bitflags v1.3.2
+│   │   │   ├── percpu v0.2.0
+│   │   │   │   ├── cfg-if v1.0.0
+│   │   │   │   ├── kernel_guard v0.1.2 (*)
+│   │   │   │   ├── percpu_macros v0.2.0 (proc-macro)
+│   │   │   │   │   ├── proc-macro2 v1.0.94 (*)
+│   │   │   │   │   ├── quote v1.0.40 (*)
+│   │   │   │   │   └── syn v2.0.100 (*)
+│   │   │   │   ├── spin v0.9.8
+│   │   │   │   │   └── lock_api v0.4.12
+│   │   │   │   │       └── scopeguard v1.2.0
+│   │   │   │   │       [build-dependencies]
+│   │   │   │   │       └── autocfg v1.4.0
+│   │   │   │   └── x86 v0.52.0 (*)
+│   │   │   ├── raw-cpuid v11.5.0
+│   │   │   │   └── bitflags v2.9.0
+│   │   │   ├── static_assertions v1.1.0
+│   │   │   ├── x2apic v0.4.3
+│   │   │   │   ├── bit v0.1.1
+│   │   │   │   ├── bitflags v1.3.2
+│   │   │   │   ├── paste v1.0.15 (proc-macro)
+│   │   │   │   ├── raw-cpuid v10.7.0 (*)
+│   │   │   │   └── x86_64 v0.14.13
+│   │   │   │       ├── bit_field v0.10.2
+│   │   │   │       ├── bitflags v2.9.0
+│   │   │   │       ├── rustversion v1.0.20 (proc-macro)
+│   │   │   │       └── volatile v0.4.6
+│   │   │   ├── x86 v0.52.0 (*)
+│   │   │   └── x86_64 v0.15.2 (*)
+│   │   │   [build-dependencies]
+│   │   │   └── axconfig v0.1.0 (/root/AstrancE/modules/axconfig) (*)
+│   │   ├── axlog v0.1.0 (/root/AstrancE/modules/axlog) (*)
+│   │   ├── axruntime v0.1.0 (/root/AstrancE/modules/axruntime)
+│   │   │   ├── axalloc v0.1.0 (/root/AstrancE/modules/axalloc) (*)
+│   │   │   ├── axconfig v0.1.0 (/root/AstrancE/modules/axconfig) (*)
+│   │   │   ├── axdriver v0.1.0 (/root/AstrancE/modules/axdriver)
+│   │   │   │   ├── axconfig v0.1.0 (/root/AstrancE/modules/axconfig) (*)
+│   │   │   │   ├── axdriver_base v0.1.2 (https://github.com/arceos-org/axdriver_crates.git?tag=v0.1.2#84eb2170)
+│   │   │   │   ├── axdriver_block v0.1.2 (https://github.com/arceos-org/axdriver_crates.git?tag=v0.1.2#84eb2170)
+│   │   │   │   │   ├── axdriver_base v0.1.2 (https://github.com/arceos-org/axdriver_crates.git?tag=v0.1.2#84eb2170)
+│   │   │   │   │   └── log v0.4.21
+│   │   │   │   ├── axdriver_pci v0.1.2 (https://github.com/arceos-org/axdriver_crates.git?tag=v0.1.2#84eb2170)
+│   │   │   │   │   └── virtio-drivers v0.7.4
+│   │   │   │   │       ├── bitflags v2.9.0
+│   │   │   │   │       ├── log v0.4.21
+│   │   │   │   │       └── zerocopy v0.7.35
+│   │   │   │   │           ├── byteorder v1.5.0
+│   │   │   │   │           └── zerocopy-derive v0.7.35 (proc-macro)
+│   │   │   │   │               ├── proc-macro2 v1.0.94 (*)
+│   │   │   │   │               ├── quote v1.0.40 (*)
+│   │   │   │   │               └── syn v2.0.100 (*)
+│   │   │   │   ├── axhal v0.1.0 (/root/AstrancE/modules/axhal) (*)
+│   │   │   │   ├── cfg-if v1.0.0
+│   │   │   │   ├── crate_interface v0.1.4 (proc-macro) (*)
+│   │   │   │   └── log v0.4.21
+│   │   │   ├── axfs v0.1.0 (/root/AstrancE/modules/axfs)
+│   │   │   │   ├── axdriver v0.1.0 (/root/AstrancE/modules/axdriver) (*)
+│   │   │   │   ├── axdriver_block v0.1.2 (https://github.com/arceos-org/axdriver_crates.git?tag=v0.1.2#84eb2170) (*)
+│   │   │   │   ├── axerrno v0.1.0 (*)
+│   │   │   │   ├── axfs_devfs v0.1.1 (/root/AstrancE/crates/axfs_crates-0.1.1/axfs_devfs)
+│   │   │   │   │   ├── axfs_vfs v0.1.1 (/root/AstrancE/crates/axfs_crates-0.1.1/axfs_vfs)
+│   │   │   │   │   │   ├── axerrno v0.1.0 (*)
+│   │   │   │   │   │   ├── bitflags v2.9.0
+│   │   │   │   │   │   └── log v0.4.21
+│   │   │   │   │   ├── log v0.4.21
+│   │   │   │   │   └── spin v0.9.8 (*)
+│   │   │   │   ├── axfs_ramfs v0.1.1
+│   │   │   │   │   ├── axfs_vfs v0.1.1 (/root/AstrancE/crates/axfs_crates-0.1.1/axfs_vfs) (*)
+│   │   │   │   │   ├── log v0.4.21
+│   │   │   │   │   └── spin v0.9.8 (*)
+│   │   │   │   ├── axfs_vfs v0.1.1 (/root/AstrancE/crates/axfs_crates-0.1.1/axfs_vfs) (*)
+│   │   │   │   ├── axio v0.1.1
+│   │   │   │   │   └── axerrno v0.1.0 (*)
+│   │   │   │   ├── axns v0.1.0 (/root/AstrancE/modules/axns)
+│   │   │   │   │   ├── crate_interface v0.1.4 (proc-macro) (*)
+│   │   │   │   │   └── lazyinit v0.2.1
+│   │   │   │   ├── axsync v0.1.0 (/root/AstrancE/modules/axsync)
+│   │   │   │   │   ├── axtask v0.1.0 (/root/AstrancE/modules/axtask)
+│   │   │   │   │   │   ├── axconfig v0.1.0 (/root/AstrancE/modules/axconfig) (*)
+│   │   │   │   │   │   ├── axhal v0.1.0 (/root/AstrancE/modules/axhal) (*)
+│   │   │   │   │   │   ├── cfg-if v1.0.0
+│   │   │   │   │   │   ├── cpumask v0.1.0
+│   │   │   │   │   │   │   └── bitmaps v3.2.1
+│   │   │   │   │   │   ├── crate_interface v0.1.4 (proc-macro) (*)
+│   │   │   │   │   │   ├── kernel_guard v0.1.2 (*)
+│   │   │   │   │   │   ├── kspin v0.1.0 (*)
+│   │   │   │   │   │   ├── lazyinit v0.2.1
+│   │   │   │   │   │   ├── log v0.4.21
+│   │   │   │   │   │   ├── memory_addr v0.3.2 (/root/AstrancE/crates/axmm_crates/memory_addr)
+│   │   │   │   │   │   ├── percpu v0.2.0 (*)
+│   │   │   │   │   │   ├── scheduler v0.1.0 (https://github.com/arceos-org/scheduler.git?tag=v0.1.0#c8d25d9a)
+│   │   │   │   │   │   │   └── linked_list v0.1.0 (https://github.com/arceos-org/linked_list.git?tag=v0.1.0#34c8db30)
+│   │   │   │   │   │   └── timer_list v0.1.0
+│   │   │   │   │   └── kspin v0.1.0 (*)
+│   │   │   │   ├── cap_access v0.1.0
+│   │   │   │   │   └── bitflags v2.9.0
+│   │   │   │   ├── cfg-if v1.0.0
+│   │   │   │   ├── fatfs v0.4.0 (https://github.com/rafalh/rust-fatfs?rev=85f06e0#85f06e08)
+│   │   │   │   │   ├── bitflags v2.9.0
+│   │   │   │   │   └── log v0.4.21
+│   │   │   │   ├── lazyinit v0.2.1
+│   │   │   │   ├── log v0.4.21
+│   │   │   │   └── spin v0.9.8 (*)
+│   │   │   ├── axhal v0.1.0 (/root/AstrancE/modules/axhal) (*)
+│   │   │   ├── axlog v0.1.0 (/root/AstrancE/modules/axlog) (*)
+│   │   │   ├── axmm v0.1.0 (/root/AstrancE/modules/axmm)
+│   │   │   │   ├── axalloc v0.1.0 (/root/AstrancE/modules/axalloc) (*)
+│   │   │   │   ├── axconfig v0.1.0 (/root/AstrancE/modules/axconfig) (*)
+│   │   │   │   ├── axerrno v0.1.0 (*)
+│   │   │   │   ├── axhal v0.1.0 (/root/AstrancE/modules/axhal) (*)
+│   │   │   │   ├── kspin v0.1.0 (*)
+│   │   │   │   ├── lazyinit v0.2.1
+│   │   │   │   ├── log v0.4.21
+│   │   │   │   ├── memory_addr v0.3.2 (/root/AstrancE/crates/axmm_crates/memory_addr)
+│   │   │   │   ├── memory_set v0.3.2 (/root/AstrancE/crates/axmm_crates/memory_set)
+│   │   │   │   │   └── memory_addr v0.3.2 (/root/AstrancE/crates/axmm_crates/memory_addr)
+│   │   │   │   └── page_table_multiarch v0.5.4 (/root/AstrancE/crates/page_table_multiarch/page_table_multiarch) (*)
+│   │   │   ├── axtask v0.1.0 (/root/AstrancE/modules/axtask) (*)
+│   │   │   ├── chrono v0.4.40
+│   │   │   │   └── num-traits v0.2.19
+│   │   │   │       [build-dependencies]
+│   │   │   │       └── autocfg v1.4.0
+│   │   │   ├── crate_interface v0.1.4 (proc-macro) (*)
+│   │   │   ├── ctor_bare v0.2.1
+│   │   │   │   └── ctor_bare_macros v0.2.1 (proc-macro)
+│   │   │   │       ├── proc-macro2 v1.0.94 (*)
+│   │   │   │       ├── quote v1.0.40 (*)
+│   │   │   │       └── syn v2.0.100 (*)
+│   │   │   ├── kernel_guard v0.1.2 (*)
+│   │   │   └── percpu v0.2.0 (*)
+│   │   ├── axsync v0.1.0 (/root/AstrancE/modules/axsync) (*)
+│   │   └── axtask v0.1.0 (/root/AstrancE/modules/axtask) (*)
+│   ├── axhal v0.1.0 (/root/AstrancE/modules/axhal) (*)
+│   ├── axio v0.1.1 (*)
+│   ├── axlog v0.1.0 (/root/AstrancE/modules/axlog) (*)
+│   ├── axns v0.1.0 (/root/AstrancE/modules/axns) (*)
+│   ├── axruntime v0.1.0 (/root/AstrancE/modules/axruntime) (*)
+│   ├── axsync v0.1.0 (/root/AstrancE/modules/axsync) (*)
+│   ├── axtask v0.1.0 (/root/AstrancE/modules/axtask) (*)
+│   ├── ctor_bare v0.2.1 (*)
+│   ├── flatten_objects v0.2.3
+│   │   └── bitmaps v3.2.1
+│   ├── lazy_static v1.5.0
+│   │   └── spin v0.9.8 (*)
+│   ├── log v0.4.21
+│   ├── spin v0.9.8 (*)
+│   └── static_assertions v1.1.0
+│   [build-dependencies]
+│   └── bindgen v0.69.5
+│       ├── bitflags v2.9.0
+│       ├── cexpr v0.6.0
+│       │   └── nom v7.1.3
+│       │       ├── memchr v2.7.4
+│       │       └── minimal-lexical v0.2.1
+│       ├── clang-sys v1.8.1
+│       │   ├── glob v0.3.2
+│       │   ├── libc v0.2.171
+│       │   └── libloading v0.8.6
+│       │       └── cfg-if v1.0.0
+│       │   [build-dependencies]
+│       │   └── glob v0.3.2
+│       ├── itertools v0.12.1
+│       │   └── either v1.15.0
+│       ├── lazy_static v1.5.0
+│       ├── lazycell v1.3.0
+│       ├── log v0.4.21
+│       ├── prettyplease v0.2.31
+│       │   ├── proc-macro2 v1.0.94 (*)
+│       │   └── syn v2.0.100 (*)
+│       ├── proc-macro2 v1.0.94 (*)
+│       ├── quote v1.0.40 (*)
+│       ├── regex v1.11.1
+│       │   ├── regex-automata v0.4.9
+│       │   │   └── regex-syntax v0.8.5
+│       │   └── regex-syntax v0.8.5
+│       ├── rustc-hash v1.1.0
+│       ├── shlex v1.3.0
+│       ├── syn v2.0.100 (*)
+│       └── which v4.4.2
+│           ├── either v1.15.0
+│           ├── home v0.5.11
+│           └── rustix v0.38.44
+│               ├── bitflags v2.9.0
+│               └── linux-raw-sys v0.4.15
+├── axalloc v0.1.0 (/root/AstrancE/modules/axalloc) (*)
+├── axconfig v0.1.0 (/root/AstrancE/modules/axconfig) (*)
+├── axerrno v0.1.0 (*)
+├── axfs v0.1.0 (/root/AstrancE/modules/axfs) (*)
+├── axhal v0.1.0 (/root/AstrancE/modules/axhal) (*)
+├── axlog v0.1.0 (/root/AstrancE/modules/axlog) (*)
+├── axmm v0.1.0 (/root/AstrancE/modules/axmm) (*)
+├── axmono v0.1.0 (/root/AstrancE/ulib/axmono)
+│   ├── arceos_posix_api v0.1.0 (/root/AstrancE/api/arceos_posix_api) (*)
+│   ├── axconfig v0.1.0 (/root/AstrancE/modules/axconfig) (*)
+│   ├── axerrno v0.1.0 (*)
+│   ├── axfeat v0.1.0 (/root/AstrancE/api/axfeat) (*)
+│   ├── axfs v0.1.0 (/root/AstrancE/modules/axfs) (*)
+│   ├── axhal v0.1.0 (/root/AstrancE/modules/axhal) (*)
+│   ├── axlog v0.1.0 (/root/AstrancE/modules/axlog) (*)
+│   ├── axmm v0.1.0 (/root/AstrancE/modules/axmm) (*)
+│   ├── axns v0.1.0 (/root/AstrancE/modules/axns) (*)
+│   ├── axsync v0.1.0 (/root/AstrancE/modules/axsync) (*)
+│   ├── axtask v0.1.0 (/root/AstrancE/modules/axtask) (*)
+│   ├── bitflags v2.9.0
+│   ├── crate_interface v0.1.4 (proc-macro) (*)
+│   ├── kernel-elf-parser v0.3.2
+│   │   ├── axerrno v0.1.0 (*)
+│   │   ├── cfg-if v1.0.0
+│   │   ├── log v0.4.21
+│   │   ├── memory_addr v0.3.2 (/root/AstrancE/crates/axmm_crates/memory_addr)
+│   │   ├── page_table_entry v0.5.4 (/root/AstrancE/crates/page_table_multiarch/page_table_entry) (*)
+│   │   └── xmas-elf v0.9.1
+│   │       └── zero v0.1.3
+│   ├── linkme v0.3.32 (*)
+│   ├── memory_addr v0.3.2 (/root/AstrancE/crates/axmm_crates/memory_addr)
+│   ├── numeric-enum-macro v0.2.0 (https://github.com/mexus/numeric-enum-macro#20aef288)
+│   ├── page_table_entry v0.5.4 (/root/AstrancE/crates/page_table_multiarch/page_table_entry) (*)
+│   ├── page_table_multiarch v0.5.4 (/root/AstrancE/crates/page_table_multiarch/page_table_multiarch) (*)
+│   ├── syscalls v0.6.18
+│   └── xmas-elf v0.9.1 (*)
+├── axns v0.1.0 (/root/AstrancE/modules/axns) (*)
+├── axruntime v0.1.0 (/root/AstrancE/modules/axruntime) (*)
+├── axstd v0.1.0 (/root/AstrancE/ulib/axstd)
+│   ├── arceos_api v0.1.0 (/root/AstrancE/api/arceos_api)
+│   │   ├── axconfig v0.1.0 (/root/AstrancE/modules/axconfig) (*)
+│   │   ├── axerrno v0.1.0 (*)
+│   │   ├── axfeat v0.1.0 (/root/AstrancE/api/axfeat) (*)
+│   │   ├── axhal v0.1.0 (/root/AstrancE/modules/axhal) (*)
+│   │   ├── axio v0.1.1 (*)
+│   │   ├── axlog v0.1.0 (/root/AstrancE/modules/axlog) (*)
+│   │   ├── axruntime v0.1.0 (/root/AstrancE/modules/axruntime) (*)
+│   │   └── axsync v0.1.0 (/root/AstrancE/modules/axsync) (*)
+│   ├── axerrno v0.1.0 (*)
+│   ├── axfeat v0.1.0 (/root/AstrancE/api/axfeat) (*)
+│   ├── axio v0.1.1 (*)
+│   └── kspin v0.1.0 (*)
+├── axsync v0.1.0 (/root/AstrancE/modules/axsync) (*)
+├── axsyscall v0.1.0 (/root/AstrancE/modules/axsyscall)
+│   ├── arceos_posix_api v0.1.0 (/root/AstrancE/api/arceos_posix_api) (*)
+│   ├── axconfig v0.1.0 (/root/AstrancE/modules/axconfig) (*)
+│   ├── axerrno v0.1.0 (*)
+│   ├── axlog v0.1.0 (/root/AstrancE/modules/axlog) (*)
+│   ├── axmono v0.1.0 (/root/AstrancE/ulib/axmono) (*)
+│   ├── axtask v0.1.0 (/root/AstrancE/modules/axtask) (*)
+│   └── syscalls v0.6.18
+├── axtask v0.1.0 (/root/AstrancE/modules/axtask) (*)
+├── bitflags v2.9.0
+├── kernel-elf-parser v0.3.2 (*)
+├── linkme v0.3.32 (*)
+├── num_enum v0.7.3
+│   └── num_enum_derive v0.7.3 (proc-macro)
+│       ├── proc-macro2 v1.0.94 (*)
+│       ├── quote v1.0.40 (*)
+│       └── syn v2.0.100 (*)
+├── numeric-enum-macro v0.2.0 (https://github.com/mexus/numeric-enum-macro#20aef288)
+├── syscalls v0.6.18
+└── xmas-elf v0.9.1 (*)
+[build-dependencies]
+├── acbat v0.1.0 (/root/AstrancE/crates/acbat)
+│   ├── path-clean v1.0.1
+│   ├── pathdiff v0.2.3
+│   └── relative-path v1.9.3
+└── toml_edit v0.22.24 (*)

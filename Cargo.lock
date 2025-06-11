@@ -320,7 +320,7 @@ dependencies = [
 
 [[package]]
 name = "axfs_devfs"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "axfs_vfs",
  "log",
@@ -329,7 +329,7 @@ dependencies = [
 
 [[package]]
 name = "axfs_ramfs"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "axfs_vfs",
  "log",
@@ -338,7 +338,7 @@ dependencies = [
 
 [[package]]
 name = "axfs_vfs"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "axerrno",
  "bitflags 2.9.0",
@@ -457,7 +457,7 @@ dependencies = [
 [[package]]
 name = "axns"
 version = "0.1.0"
-source = "git+https://github.com/AstranciA/AstrancE.git#23259288199d975175c4c4e3d8ed7aa041d58c99"
+source = "git+https://github.com/AstranciA/AstrancE.git#e3fe8e28eb9396649227e8e561f12aed28e4ae0d"
 dependencies = [
  "crate_interface",
  "lazyinit",
@@ -544,6 +544,7 @@ dependencies = [
  "axconfig",
  "axerrno",
  "axfs",
+ "axfs_vfs",
  "axhal",
  "axlog",
  "axmm",
@@ -800,8 +801,7 @@ dependencies = [
 [[package]]
 name = "cty"
 version = "0.2.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b365fabc795046672053e29c954733ec3b05e4be654ab130fe8f1f94d7051f35"
+source = "git+https://github.com/MukioXun/cty.git#a9a8fa60322e7f60f25ae0551fefeb84580ee59e"
 
 [[package]]
 name = "dw_apb_uart"

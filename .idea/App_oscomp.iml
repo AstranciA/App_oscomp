@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="EMPTY_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/testcases/nimbos/rust/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/testcases/nimbos/rust/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/api/arceos_api/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/api/arceos_posix_api/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/api/axfeat/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/examples/helloworld/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/examples/httpclient/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/examples/httpserver/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/examples/shell/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/modules/axalloc/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/modules/axconfig/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/modules/axdisplay/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/modules/axdma/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/modules/axdriver/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/modules/axfs/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/modules/axfs/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/modules/axhal/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/modules/axlog/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/modules/axmm/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/modules/axnet/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/modules/axns/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/modules/axns/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/modules/axruntime/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/modules/axsync/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/modules/axsyscall/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/modules/axtask/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/ulib/axlibc/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/ulib/axmono/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/ulib/axstd/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/crates/axmm_crates/memory_addr/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/crates/axmm_crates/memory_set/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/crates/page_table_multiarch/page_table_entry/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/crates/page_table_multiarch/page_table_multiarch/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/modules/axdevice/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/crates/axdriver_crates/axdriver_base/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/crates/axdriver_crates/axdriver_block/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/crates/axdriver_crates/axdriver_display/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/crates/axdriver_crates/axdriver_net/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/crates/axdriver_crates/axdriver_pci/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/crates/axdriver_crates/axdriver_virtio/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/crates/axfs_crates/axfs_devfs/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/crates/axfs_crates/axfs_ramfs/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/crates/axfs_crates/axfs_vfs/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/crates/lwext4_rust/examples" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/crates/lwext4_rust/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/examples/TCP_test/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/.AstrancE/modules/axsignal/src" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/.AstrancE/testcases/nimbos/rust/target" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+      <excludeFolder url="file://$MODULE_DIR$/testcases/nimbos/rust/target" />
+      <excludeFolder url="file://$MODULE_DIR$/.AstrancE/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

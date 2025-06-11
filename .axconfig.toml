@@ -1,14 +1,19 @@
 # Architecture identifier.
 arch = "riscv64" # str
+logo = "AstrancE.png"
+nodename = "AstrancR"
 # Platform identifier.
 platform = "riscv64-qemu-virt" # str
+release = "0.1"
 # Number of CPUs
 smp = 1 # uint
+sysname = "AstrancE"
 # Stack size of each task.
 task-stack-size = 0x40000 # uint
 # Number of timer ticks per second (Hz). A timer tick may contain several timer
 # interrupts.
 ticks-per-sec = 100 # uint
+version = "0.1"
 
 #
 # Device specifications
@@ -65,6 +70,7 @@ family = "riscv64-qemu-virt" # str
 kernel-aspace-base = "0xffff_ffc0_0000_0000" # uint
 # Kernel address space size.
 kernel-aspace-size = "0x0000_003f_ffff_f000" # uint
+#phys-memory-size = 0x1000_0000       # uint
 # Base physical address of the kernel image.
 kernel-base-paddr = 0x8020_0000 # uint
 # Base virtual address of the kernel image.
@@ -81,17 +87,23 @@ phys-memory-size = 0x800_0000 # uint
 # Linear mapping offset, for quick conversions between physical and virtual
 # addresses.
 phys-virt-offset = "0xffff_ffc0_0000_0000" # uint
+# 信号栈基址（用户栈下方）
+signal-stack-base = 0x3_fffe_0000
+# 信号栈大小（4KB）
+signal-stack-size = 0x1000
 # The lowest address of the user heap.
-user-heap-base = 0x4000_0000
+user-heap-base = 0x2000_0000
 # The size of the user heap.
-user-heap-size = 0x1_0000
+user-heap-size = 0x2000_0000
 # The base address for user interpreter.
 user-interp-base = 0x400_0000
 # The base address of the user space.
 user-space-base = 0x0000
 # The size of the user space.
-user-space-size = 0x3f_ffff_f000
+user-space-size = 0x7_ffff_ffff
 # The size of the user stack.
-user-stack-size = 0x1_0000
+user-stack-size = 0x10_0000
 # The highest address of the user stack.
-user-stack-top = 0x4_0000_0000
+user-stack-top = 0x4000_0000
+# trampoline基址
+user-trampoline-base = 0x5_0000_0000
