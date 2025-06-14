@@ -4,7 +4,7 @@
 #![no_main]
 #![feature(stmt_expr_attributes)]
 
-use axfs::api::read_dir;
+use axfs::api::{read, read_dir};
 
 extern crate axstd;
 #[macro_use]
@@ -13,7 +13,7 @@ extern crate axlog;
 extern crate alloc;
 
 mod testcase;
-use axmono::task::init_proc;
+use axmono::{fs::init_fs, task::init_proc};
 use testcase::*;
 
 #[unsafe(no_mangle)]
@@ -22,17 +22,6 @@ fn main() {
     // 初始化测试环境
     mount_testsuite();
 
-    // 示例2：运行shell命令
-    TestCaseBuilder::shell("/")
-        .script("echo 'Kernel Test Start' && ls /ts")
-        .run();
-    // 示例3：运行标准测试套件
-    run_testcode("libctest", "musl");
-    run_testcode("lua", "musl");
-    // 示例4：复杂测试用例
-    let builder = TestCaseBuilder::new("/ts/musl/entry-dynamic.exe", "/ts/musl")
-        .args(&["vfork"])
-        .env("DEBUG", "1")
-        .run();
+    init_fs();
     info!("All tests completed");
 }
