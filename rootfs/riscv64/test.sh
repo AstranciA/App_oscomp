@@ -1,1 +1,0 @@
-./runtest.exe -w entry-static.exe stat

@@ -3,8 +3,7 @@
 #![no_std]
 #![no_main]
 #![feature(stmt_expr_attributes)]
-
-use axfs::api::{read, read_dir};
+#![feature(naked_functions)]
 
 extern crate axstd;
 #[macro_use]
@@ -23,5 +22,14 @@ fn main() {
     mount_testsuite();
 
     init_fs();
+
+    TestCaseBuilder::shell("/ts/musl")
+        .script("/testrun.sh")
+        .run();
+    TestCaseBuilder::shell("/ts/glibc/basic")
+        .script("/glibc_test.sh")
+        .run();
+
+
     info!("All tests completed");
 }
