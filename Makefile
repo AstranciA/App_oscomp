@@ -56,7 +56,7 @@ all: kernel-rv kernel-la
 kernel-rv:
 	@echo "Building RISC-V kernel..."
 	@$(MAKE) ARCH=riscv64 LOG=$(LOG) FEATURES=lwext4_rs,fs BLK=y BUS=mmio defconfig
-	@$(MAKE) disk_img DISK_SOURCES="$(PWD)/rootfs/riscv64:disk.img:ext4" DISK_SIZE_MB=50
+	@$(MAKE) disk_img DISK_SOURCES="$(PWD)/rootfs/riscv64:disk-rv.img:ext4" DISK_SIZE_MB=50
 	@$(MAKE) build ARCH=riscv64 LOG=$(LOG) FEATURES=lwext4_rs,fs BLK=y BUS=mmio
 	mv ./App_oscomp_riscv64-qemu-virt.bin ./kernel-rv.bin
 	mv ./App_oscomp_riscv64-qemu-virt.elf ./kernel-rv.elf
@@ -64,7 +64,7 @@ kernel-rv:
 kernel-la:
 	@echo "Building LoongArch kernel..."
 	@$(MAKE) ARCH=loongarch64 LOG=$(LOG) FEATURES=lwext4_rs,fs BLK=y BUS=pci defconfig
-	@$(MAKE) disk_img DISK_SOURCES="$(PWD)/rootfs/loongarch64:disk.img:ext4" DISK_SIZE_MB=50
+	@$(MAKE) disk_img DISK_SOURCES="$(PWD)/rootfs/loongarch64:disk-la.img:ext4" DISK_SIZE_MB=50
 	@$(MAKE) build ARCH=loongarch64 LOG=$(LOG) FEATURES=lwext4_rs,fs BLK=y BUS=pci
 	mv ./App_oscomp_loongarch64-qemu-virt.elf ./kernel-la.elf
 	mv ./App_oscomp_loongarch64-qemu-virt.bin ./kernel-la.bin

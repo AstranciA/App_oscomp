@@ -147,7 +147,7 @@ dependencies = [
  "axhal",
  "axio",
  "axlog",
- "axns 0.1.0 (git+https://github.com/oscomp/arceos.git)",
+ "axns 0.1.0",
  "axruntime",
  "axsync",
  "axtask",
@@ -308,7 +308,7 @@ dependencies = [
  "axfs_ramfs",
  "axfs_vfs",
  "axio",
- "axns 0.1.0 (git+https://github.com/oscomp/arceos.git)",
+ "axns 0.1.0",
  "axsync",
  "cap_access",
  "cfg-if",
@@ -419,7 +419,6 @@ dependencies = [
  "axconfig",
  "axerrno",
  "axhal",
- "axsync",
  "bitflags 2.9.0",
  "kspin",
  "lazyinit",
@@ -442,7 +441,7 @@ dependencies = [
  "axio",
  "axlog",
  "axmm",
- "axns 0.1.0 (git+https://github.com/oscomp/arceos.git)",
+ "axns 0.1.0",
  "axprocess",
  "axsignal",
  "axsync",
@@ -469,7 +468,6 @@ dependencies = [
 [[package]]
 name = "axns"
 version = "0.1.0"
-source = "git+https://github.com/AstranciA/AstrancE.git#ca78c4a5185bfb4e3a12ce4b21106afebd75881a"
 dependencies = [
  "crate_interface",
  "lazyinit",
@@ -478,7 +476,7 @@ dependencies = [
 [[package]]
 name = "axns"
 version = "0.1.0"
-source = "git+https://github.com/oscomp/arceos.git#99c579b6038ea8a22ee8312d83b3f0ad02328d8d"
+source = "git+https://github.com/AstranciA/AstrancE.git#ca78c4a5185bfb4e3a12ce4b21106afebd75881a"
 dependencies = [
  "crate_interface",
  "lazyinit",
