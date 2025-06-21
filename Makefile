@@ -51,12 +51,15 @@ include scripts/make/disk.mk
 
 all_1: env oscomp_build
 
-all: kernel-rv kernel-la
+all: kernel-rv kernel-la rootfs
+
+rootfs:
+	sudo $(MAKE) disk_img DISK_SOURCES="$(PWD)/rootfs/riscv64:disk-rv.img:ext4" DISK_SIZE_MB=50
+	sudo $(MAKE) disk_img DISK_SOURCES="$(PWD)/rootfs/loongarch64:disk-la.img:ext4" DISK_SIZE_MB=50
 
 kernel-rv:
 	@echo "Building RISC-V kernel..."
 	@$(MAKE) ARCH=riscv64 LOG=$(LOG) FEATURES=lwext4_rs,fs BLK=y BUS=mmio defconfig
-	@$(MAKE) disk_img DISK_SOURCES="$(PWD)/rootfs/riscv64:disk-rv.img:ext4" DISK_SIZE_MB=50
 	@$(MAKE) build ARCH=riscv64 LOG=$(LOG) FEATURES=lwext4_rs,fs BLK=y BUS=mmio
 	mv ./App_oscomp_riscv64-qemu-virt.bin ./kernel-rv.bin
 	mv ./App_oscomp_riscv64-qemu-virt.elf ./kernel-rv.elf
@@ -64,7 +67,6 @@ kernel-rv:
 kernel-la:
 	@echo "Building LoongArch kernel..."
 	@$(MAKE) ARCH=loongarch64 LOG=$(LOG) FEATURES=lwext4_rs,fs BLK=y BUS=pci defconfig
-	@$(MAKE) disk_img DISK_SOURCES="$(PWD)/rootfs/loongarch64:disk-la.img:ext4" DISK_SIZE_MB=50
 	@$(MAKE) build ARCH=loongarch64 LOG=$(LOG) FEATURES=lwext4_rs,fs BLK=y BUS=pci
 	mv ./App_oscomp_loongarch64-qemu-virt.elf ./kernel-la.elf
 	mv ./App_oscomp_loongarch64-qemu-virt.bin ./kernel-la.bin
@@ -81,10 +83,8 @@ fetch_ax:
 
 ax_root:
 	@./scripts/set_ax_root.sh $(AX_ROOT)
-	#@make -C $(AX_ROOT) disk_img
 
 testcase:
-	#@make -C $(TESTCASE) ARCH=$(ARCH) build
 	@make -C $(TESTCASE) ARCH=$(ARCH) rust
 	@if [ -z "$(shell command -v sudo)" ]; then \
 		./build_img.sh -a $(ARCH) -fs ext4 -file $(TESTCASE)/build/$(ARCH) -s 20; \
@@ -109,4 +109,4 @@ clean: ax_root
 doc_check_missing:
 	@cargo doc --no-deps --all-features --workspace
 
-.PHONY: all ax_root build run justrun debug disasm clean test_build
+.PHONY: all ax_root build run justrun debug disasm clean test_build rootfs
