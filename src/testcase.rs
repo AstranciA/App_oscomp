@@ -16,7 +16,6 @@ use axfs::{DISKS, Disk, ROOT_DIR};
 use axhal::arch::UspaceContext;
 use axlog::{debug, info, warn};
 use axmono::init_proc;
-use axmono::mm::trampoline_vaddr;
 use axmono::{
     copy_from_kernel,
     loader::load_elf_from_disk,
@@ -80,11 +79,6 @@ impl TestCaseBuilder {
     }
 }
 
-//#[naked]
-#[unsafe(no_mangle)]
-#[unsafe(link_section = ".trampoline.sigreturn")]
-pub unsafe extern "C" fn tmp_trampoline() {}
-
 /// 内部测试执行函数
 pub(crate) fn run_testcase_inner(
     app_path: &str,
@@ -112,8 +106,6 @@ pub(crate) fn run_testcase_inner(
         entry_vaddr, user_stack_base
     );
 
-    //let mut uctx = UspaceContext::new(entry_vaddr.into(), user_stack_base, 2333);
-    //let ent = unsafe { trampoline_vaddr(tmp_trampoline as usize) };
     let mut uctx = UspaceContext::new(entry_vaddr.into(), user_stack_base, 0);
     if let Some(tp) = tp {
         uctx.set_tp(tp.as_usize());

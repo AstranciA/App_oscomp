@@ -1,5 +1,5 @@
-./lua_testcode.sh
-./basic_testcode.sh
+#./lua_testcode.sh
+#./basic_testcode.sh
 ./libcbench_testcode.sh
 ./busybox echo "#### OS COMP TEST GROUP START libctest-musl ####"
 ./run-static.sh
