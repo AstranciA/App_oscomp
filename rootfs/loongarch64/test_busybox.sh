@@ -10,5 +10,5 @@ do
     else
         echo "testcase busybox $line success"
     fi
-done < ./busybox_cmd.txt
+done < /busybox_cmd.txt
 ./busybox echo "#### OS COMP TEST GROUP END busybox ####"
