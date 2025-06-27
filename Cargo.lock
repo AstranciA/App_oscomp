@@ -322,7 +322,7 @@ dependencies = [
 
 [[package]]
 name = "axfs_devfs"
-version = "0.1.1"
+version = "0.1.0"
 dependencies = [
  "axfs_vfs",
  "log",
@@ -331,7 +331,7 @@ dependencies = [
 
 [[package]]
 name = "axfs_procfs"
-version = "0.1.1"
+version = "0.1.0"
 dependencies = [
  "axfs_vfs",
  "log",
@@ -340,7 +340,7 @@ dependencies = [
 
 [[package]]
 name = "axfs_ramfs"
-version = "0.1.1"
+version = "0.1.0"
 dependencies = [
  "axfs_vfs",
  "log",
@@ -349,7 +349,7 @@ dependencies = [
 
 [[package]]
 name = "axfs_vfs"
-version = "0.1.1"
+version = "0.1.0"
 dependencies = [
  "axerrno",
  "bitflags 2.9.0",
@@ -522,6 +522,7 @@ dependencies = [
  "bitflags 2.9.0",
  "linux-raw-sys 0.9.4",
  "memory_addr",
+ "numeric-enum-macro",
  "riscv",
  "syscalls",
 ]

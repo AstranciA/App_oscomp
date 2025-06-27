@@ -22,11 +22,37 @@ fn main() {
     mount_testsuite();
 
     init_fs();
+    oscomp_test();
+    return;
 
-    TestCaseBuilder::shell("/ts/musl")
-        .script("/test_busybox.sh")
-        .run();
-
+    /*
+     *TestCaseBuilder::new("/ts/musl/entry-static.exe", "/ts/musl")
+     *    .arg("pthread_mutex")
+     *    .run();
+     */
+/*
+ *    TestCaseBuilder::new("/ts/musl/runtest.exe", "/ts/musl")
+ *        .args(&["-w", "/ts/musl/entry-static.exe", "pthread_cancel"])
+ *
+ *        .run();
+ */
+/*
+ *    TestCaseBuilder::new("/ts/musl/runtest.exe", "/ts/musl")
+ *        .args(&["-w", "/ts/musl/entry-static.exe", "pthread_cond_smasher"])
+ *
+ *        .run();
+ */
+    //TestCaseBuilder::shell("/ts/glibc").arg("run-dynamic.sh").run();
+    //run_testcode("libcbench", "glibc");
 
     info!("All tests completed");
+}
+
+fn oscomp_test() {
+    TestCaseBuilder::shell("/ts/musl")
+        .script("/testrun.sh")
+        .run();
+    TestCaseBuilder::shell("/ts/glibc")
+        .script("/testrun_glibc.sh")
+        .run();
 }
