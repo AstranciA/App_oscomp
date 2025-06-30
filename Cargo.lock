@@ -419,6 +419,7 @@ dependencies = [
  "axconfig",
  "axerrno",
  "axhal",
+ "axsync",
  "bitflags 2.9.0",
  "kspin",
  "lazyinit",
@@ -433,6 +434,7 @@ name = "axmono"
 version = "0.1.0"
 dependencies = [
  "arceos_posix_api",
+ "axalloc",
  "axconfig",
  "axerrno",
  "axfeat",
@@ -445,7 +447,6 @@ dependencies = [
  "axprocess",
  "axsignal",
  "axsync",
- "axsyscall",
  "axtask",
  "bitflags 2.9.0",
  "crate_interface",
@@ -476,7 +477,7 @@ dependencies = [
 [[package]]
 name = "axns"
 version = "0.1.0"
-source = "git+https://github.com/AstranciA/AstrancE.git#ca78c4a5185bfb4e3a12ce4b21106afebd75881a"
+source = "git+https://github.com/AstranciA/AstrancE.git#d23c8f8251d6d46b81d73bbc44e0d8378bd63f48"
 dependencies = [
  "crate_interface",
  "lazyinit",
@@ -559,6 +560,7 @@ dependencies = [
  "axhal",
  "axlog",
  "axmm",
+ "axmono",
  "axtask",
  "linkme",
  "syscalls",

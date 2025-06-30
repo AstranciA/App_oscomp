@@ -2,6 +2,12 @@
 name = "aa-oscomp"
 version = "0.1.0"
 edition = "2024"
+license = "GPL-3.0-or-later OR Apache-2.0 OR MulanPSL-2.0"
+authors = [
+  "ZreXoc <zeexoc@outlook.com>",
+  "MukioXun <3045859462@qq.com>",
+  "LEOibyug <y2695719556@outlook.com>",
+]
 
 [features]
 [dependencies]
@@ -17,11 +23,7 @@ axruntime = { git = "https://github.com/AstranciA/AstrancE.git", features = [
   "multitask",
   "fs",
 ] }
-axsyscall = { git = "https://github.com/AstranciA/AstrancE.git", features = [
-  "multitask",
-  "fs",
-  "fd",
-] }
+axsyscall = { git = "https://github.com/AstranciA/AstrancE.git" }
 arceos_posix_api = { git = "https://github.com/AstranciA/AstrancE.git", features = [
   "uspace",
   "fd",
@@ -51,5 +53,4 @@ acbat = { git = "https://github.com/AstranciA/AstrancE.git" }
 toml_edit = "0.22.24"
 
 [patch.crates-io]
-cty = { git = "https://github.com/MukioXun/cty.git"}
-
+cty = { git = "https://github.com/MukioXun/cty.git" }

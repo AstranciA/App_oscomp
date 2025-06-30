@@ -1,6 +1,6 @@
 #!/busybox sh
 
-./busybox echo "#### OS COMP TEST GROUP START busybox ####"
+./busybox echo "#### OS COMP TEST GROUP START busybox-musl ####"
 while read line
 do
     eval "./busybox $line"
@@ -11,4 +11,4 @@ do
         echo "testcase busybox $line success"
     fi
 done < /busybox_cmd.txt
-./busybox echo "#### OS COMP TEST GROUP END busybox ####"
+./busybox echo "#### OS COMP TEST GROUP END busybox-musl ####"
