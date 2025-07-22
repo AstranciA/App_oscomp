@@ -1,6 +1,6 @@
 [net]
-offline=true
-git-fetch-with-cli=true
+offline = false
+git-fetch-with-cli = true
 [patch.'https://github.com/AstranciA/AstrancE.git']
 axstd = { path = "%AX_ROOT%/ulib/axstd" }
 arceos_posix_api = { path = "%AX_ROOT%/api/arceos_posix_api" }
@@ -13,11 +13,18 @@ axruntime = { path = "%AX_ROOT%/modules/axruntime" }
 axfs = { path = "%AX_ROOT%/modules/axfs" }
 axconfig = { path = "%AX_ROOT%/modules/axconfig" }
 acbat = { path = "%AX_ROOT%/crates/acbat" }
-axsyscall = { path = "%AX_ROOT%/modules/axsyscall" }
 axlog = { path = "%AX_ROOT%/modules/axlog" }
 axalloc = { path = "%AX_ROOT%/modules/axalloc" }
 axfeat = { path = "%AX_ROOT%/api/axfeat" }
 axmono = { path = "%AX_ROOT%/ulib/axmono" }
+axsyscall = { path = "%AX_ROOT%/ulib/axsyscall" }
+#[patch.'https://github.com/arceos-org/axdriver_crates.git']
+#axdriver_base = { path = "%AX_ROOT%/crates/axdriver_crates/axdriver_base" }
+#axdriver_block = { path = "%AX_ROOT%/crates/axdriver_crates/axdriver_block" }
+#axdriver_net = { path = "%AX_ROOT%/crates/axdriver_crates/axdriver_net" }
+#axdriver_display = { path = "%AX_ROOT%/crates/axdriver_crates/axdriver_display" }
+#axdriver_pci = { path = "%AX_ROOT%/crates/axdriver_crates/axdriver_pci" }
+#axdriver_virtio = { path = "%AX_ROOT%/crates/axdriver_crates/axdriver_virtio" }
 [patch.crates-io]
 page_table_multiarch = { path = "%AX_ROOT%/crates/page_table_multiarch/page_table_multiarch" }
 page_table_entry = { path = "%AX_ROOT%/crates/page_table_multiarch/page_table_entry" }
@@ -27,6 +34,7 @@ axfs_vfs = { path = "%AX_ROOT%/crates/axfs_crates/axfs_vfs" }
 axfs_devfs = { path = "%AX_ROOT%/crates/axfs_crates/axfs_devfs" }
 axfs_ramfs = { path = "%AX_ROOT%/crates/axfs_crates/axfs_ramfs" }
 lwext4_rust = { path = "%AX_ROOT%/crates/lwext4_rust" }
+#virtio-drivers = { path = "%AX_ROOT%/crates/virtio-drivers" }
 
 [patch."https://github.com/AstranciA/fast-trap"]
 fast-trap = { path = "%AX_ROOT%/crates/fast-trap/fast-trap" }

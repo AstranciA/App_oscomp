@@ -39,7 +39,7 @@ impl TestCaseBuilder {
             app_path: app_path.to_string(),
             pwd: pwd.to_string(),
             args: vec![app_path.to_string()], // 默认包含程序名作为 argv[0]
-            env: vec!["PATH=/usr/bin/".to_string(), "MDEBUG=4".to_string(), "CDEBUG=4".to_string()], // 默认环境变量
+            env: vec!["PATH=/usr/bin/".to_string()], // 默认环境变量
         }
     }
 
