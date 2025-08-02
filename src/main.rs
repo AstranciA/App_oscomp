@@ -21,10 +21,11 @@ use testcase::*;
 fn main() {
     axmono::init();
     // 初始化测试环境
-    mount_testsuite();
+    //mount_testsuite();
 
     init_fs();
-    oscomp_test();
+    TestCaseBuilder::shell("/").run();
+    //oscomp_test();
 
     //run_testcode("ltp", "musl");
     /*

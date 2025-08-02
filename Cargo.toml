@@ -21,7 +21,6 @@ axfs = { git = "https://github.com/AstranciA/AstrancE.git" }
 axtask = { git = "https://github.com/AstranciA/AstrancE.git" }
 axruntime = { git = "https://github.com/AstranciA/AstrancE.git", features = [
   "multitask",
-  "fs",
 ] }
 axsyscall = { git = "https://github.com/AstranciA/AstrancE.git" }
 arceos_posix_api = { git = "https://github.com/AstranciA/AstrancE.git", features = [
@@ -35,7 +34,7 @@ axalloc = { git = "https://github.com/AstranciA/AstrancE.git" }
 axmm = { git = "https://github.com/AstranciA/AstrancE.git" }
 axconfig = { git = "https://github.com/AstranciA/AstrancE.git" }
 axmono = { git = "https://github.com/AstranciA/AstrancE.git" }
-#axfeat = {git = "https://github.com/AstranciA/AstrancE.git", features=["fs"]}
+axfeat = { git = "https://github.com/AstranciA/AstrancE.git" }
 axerrno = "0.1"
 linkme = "0.3.32"
 bitflags = "2.9.0"
