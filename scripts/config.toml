@@ -13,7 +13,7 @@ axruntime = { path = "%AX_ROOT%/modules/axruntime" }
 axfs = { path = "%AX_ROOT%/modules/axfs" }
 axconfig = { path = "%AX_ROOT%/modules/axconfig" }
 acbat = { path = "%AX_ROOT%/crates/acbat" }
-axsyscall = { path = "%AX_ROOT%/modules/axsyscall" }
+axsyscall = { path = "%AX_ROOT%/ulib/axsyscall" }
 axlog = { path = "%AX_ROOT%/modules/axlog" }
 axalloc = { path = "%AX_ROOT%/modules/axalloc" }
 axfeat = { path = "%AX_ROOT%/api/axfeat" }
@@ -27,6 +27,13 @@ axfs_vfs = { path = "%AX_ROOT%/crates/axfs_crates/axfs_vfs" }
 axfs_devfs = { path = "%AX_ROOT%/crates/axfs_crates/axfs_devfs" }
 axfs_ramfs = { path = "%AX_ROOT%/crates/axfs_crates/axfs_ramfs" }
 lwext4_rust = { path = "%AX_ROOT%/crates/lwext4_rust" }
+
+[patch."https://github.com/arceos-org/axdriver_crates.git"]
+axdriver_base = { path = "%AX_ROOT%/crates/axdriver_crates/axdriver_base" }
+axdriver_block = { path = "%AX_ROOT%/crates/axdriver_crates/axdriver_block" }
+axdriver_net = { path = "%AX_ROOT%/crates/axdriver_crates/axdriver_net" }
+axdriver_pci = { path = "%AX_ROOT%/crates/axdriver_crates/axdriver_pci" }
+axdriver_virtio = { path = "%AX_ROOT%/crates/axdriver_crates/axdriver_virtio" }
 
 [patch."https://github.com/AstranciA/fast-trap"]
 fast-trap = { path = "%AX_ROOT%/crates/fast-trap/fast-trap" }
