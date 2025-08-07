@@ -24,7 +24,15 @@ fn main() {
     mount_testsuite();
 
     init_fs();
-    oscomp_test();
+    //oscomp_test();
+
+    // Should init once to init coreutils
+    //TestCaseBuilder::busybox("/").arg("--install").run();
+
+    //TestCaseBuilder::shell("/").run();
+    //TestCaseBuilder::shell("/ts/musl").script("zcat /proc/config.gz").run();
+    TestCaseBuilder::new("/ts/musl/ltp/testcases/bin/cgroup_fj_proc", "/ts/musl").run();
+    //TestCaseBuilder::new("/ts/musl/ltp/testcases/bin/rt_sigsuspend01", "/ts/musl/ltp/testcases/bin").run();
 
     //run_testcode("ltp", "musl");
     /*

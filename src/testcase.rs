@@ -43,10 +43,14 @@ impl TestCaseBuilder {
         }
     }
 
+    pub fn busybox(pwd: &str) -> Self {
+        Self::new("/usr/bin/busybox", pwd) // 默认使用 busybox 的 ash
+    }
+
     /// 创建 shell 测试用例（使用 busybox ash）
     pub fn shell(pwd: &str) -> Self {
         //Self::new("/usr/bin/busybox", pwd).arg("sh") // 默认使用 busybox 的 ash
-        Self::new("/ts/musl/busybox", pwd).arg("sh") // 默认使用 busybox 的 ash
+        Self::new("/usr/bin/busybox", pwd).arg("sh") // 默认使用 busybox 的 ash
     }
 
     /// 添加单个命令行参数
