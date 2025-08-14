@@ -24,6 +24,15 @@ fn main() {
     mount_testsuite();
 
     init_fs();
+    //TestCaseBuilder::busybox("/").arg("--install").run();
+    //TestCaseBuilder::shell("/ts/musl/ltp/testcases/bin").script("/test_ltp.sh").run();
+    //TestCaseBuilder::shell("/ts/musl/ltp/testcases/bin").script("/usr/bin/busybox ls /proc/").run();
+    //TestCaseBuilder::shell("/ts/musl/ltp/testcases/bin").script("/usr/bin/busybox cat /proc/4/stat").run();
+    //run_testcode("copy-file-range", "musl");
+    //run_testcode("interrupts", "musl");
+    //run_testcode("splice", "musl");
+    //run_testcode("ltp", "musl");
+    //TestCaseBuilder::new("/ts/musl/ltp/testcases/bin/abort01", "/ts/musl").run();
     //oscomp_test();
 
     // Should init once to init coreutils
@@ -31,7 +40,7 @@ fn main() {
 
     //TestCaseBuilder::shell("/").run();
     //TestCaseBuilder::shell("/ts/musl").script("zcat /proc/config.gz").run();
-    TestCaseBuilder::new("/ts/musl/ltp/testcases/bin/cgroup_fj_proc", "/ts/musl").run();
+    //TestCaseBuilder::new("/ts/musl/ltp/testcases/bin/cgroup_fj_proc", "/ts/musl").run();
     //TestCaseBuilder::new("/ts/musl/ltp/testcases/bin/rt_sigsuspend01", "/ts/musl/ltp/testcases/bin").run();
 
     //run_testcode("ltp", "musl");
@@ -59,10 +68,12 @@ fn main() {
 }
 
 fn oscomp_test() {
+    TestCaseBuilder::busybox("/").arg("--install").run();
     TestCaseBuilder::shell("/ts/musl")
         .script("/testrun.sh")
         .run();
     TestCaseBuilder::shell("/ts/glibc")
         .script("/testrun_glibc.sh")
         .run();
+    TestCaseBuilder::shell("/ts/musl/ltp/testcases/bin").script("/test_ltp.sh").run();
 }

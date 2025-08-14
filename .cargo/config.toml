@@ -1,5 +1,5 @@
 [net]
-offline=true
+offline=false
 git-fetch-with-cli=true
 [patch.'https://github.com/AstranciA/AstrancE.git']
 axstd = { path = ".AstrancE/ulib/axstd" }
