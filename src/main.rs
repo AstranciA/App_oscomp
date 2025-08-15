@@ -14,6 +14,8 @@ extern crate alloc;
 extern crate axsyscall;
 
 mod testcase;
+use core::ptr::read;
+
 use axmono::{fs::init_fs, task::init_proc};
 use testcase::*;
 
@@ -33,7 +35,7 @@ fn main() {
     //run_testcode("splice", "musl");
     //run_testcode("ltp", "musl");
     //TestCaseBuilder::new("/ts/musl/ltp/testcases/bin/abort01", "/ts/musl").run();
-    //oscomp_test();
+    oscomp_test();
 
     // Should init once to init coreutils
     //TestCaseBuilder::busybox("/").arg("--install").run();
@@ -68,12 +70,23 @@ fn main() {
 }
 
 fn oscomp_test() {
-    TestCaseBuilder::busybox("/").arg("--install").run();
-    TestCaseBuilder::shell("/ts/musl")
-        .script("/testrun.sh")
-        .run();
-    TestCaseBuilder::shell("/ts/glibc")
-        .script("/testrun_glibc.sh")
-        .run();
-    TestCaseBuilder::shell("/ts/musl/ltp/testcases/bin").script("/test_ltp.sh").run();
+    if axfs::api::read("/ts/musl/test_splice").is_ok() {
+        run_testcode("copy-file-range", "musl");
+        run_testcode("interrupts", "musl");
+        run_testcode("splice", "musl");
+        run_testcode("copy-file-range", "glibc");
+        run_testcode("interrupts", "glibc");
+        run_testcode("splice", "glibc");
+    } else {
+        TestCaseBuilder::busybox("/").arg("--install").run();
+        TestCaseBuilder::shell("/ts/musl")
+            .script("/testrun.sh")
+            .run();
+        TestCaseBuilder::shell("/ts/glibc")
+            .script("/testrun_glibc.sh")
+            .run();
+        TestCaseBuilder::shell("/ts/musl/ltp/testcases/bin")
+            .script("/test_ltp.sh")
+            .run();
+    }
 }
