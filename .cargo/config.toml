@@ -1,6 +1,6 @@
 [net]
-offline=false
-git-fetch-with-cli=true
+offline = true
+git-fetch-with-cli = true
 [patch.'https://github.com/AstranciA/AstrancE.git']
 axstd = { path = ".AstrancE/ulib/axstd" }
 arceos_posix_api = { path = ".AstrancE/api/arceos_posix_api" }

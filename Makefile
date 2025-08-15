@@ -1,3 +1,4 @@
+OFFLINE ?=
 AX_MAKE_DEFAULTS ?= BLK=y FEATURES=lwext4_rs,fp_simd,fs
 DISK_IMG ?= /root/App_oscomp/testfolder/sdcard-rv.img
 ROOTFS_DISK ?= 0
@@ -97,7 +98,7 @@ test: defconfig
 	@./scripts/app_test.sh
 
 defconfig build run justrun debug disasm:env ax_root
-	@make -C $(AX_ROOT) A=$(PWD) EXTRA_CONFIG=$(EXTRA_CONFIG) MEM=1G DISK_IMG=$(DISK_IMG) ROOTFS_DISK=$(ROOTFS_DISK) $(AX_MAKE_DEFAULTS) $@
+	@make -C $(AX_ROOT) RUSTUP_TOOLCHAIN=nightly-2025-01-18 A=$(PWD) EXTRA_CONFIG=$(EXTRA_CONFIG) MEM=1G DISK_IMG=$(DISK_IMG) ROOTFS_DISK=$(ROOTFS_DISK) $(AX_MAKE_DEFAULTS) OFFLINE=$(OFFLINE) $@
 
 clean: ax_root
 	@make -C $(AX_ROOT) A=$(PWD) ARCH=$(ARCH) clean
