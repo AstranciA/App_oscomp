@@ -1,4 +1,11 @@
 OFFLINE ?=
+SUDO :=
+ifeq ($(shell command -v sudo 2>/dev/null),)
+    SUDO :=
+else
+    SUDO := sudo
+endif
+
 AX_MAKE_DEFAULTS ?= BLK=y FEATURES=lwext4_rs,fp_simd,fs
 DISK_IMG ?= /root/App_oscomp/testfolder/sdcard-rv.img
 ROOTFS_DISK ?= 0
@@ -55,8 +62,8 @@ all_1: env oscomp_build
 all: kernel-rv kernel-la rootfs
 
 rootfs:
-	sudo $(MAKE) disk_img DISK_SOURCES="$(PWD)/rootfs/riscv64:disk-rv.img:ext4" DISK_SIZE_MB=50
-	sudo $(MAKE) disk_img DISK_SOURCES="$(PWD)/rootfs/loongarch64:disk-la.img:ext4" DISK_SIZE_MB=50
+	$(SUDO) $(MAKE) disk_img DISK_SOURCES="$(PWD)/rootfs/riscv64:disk-rv.img:ext4" DISK_SIZE_MB=50
+	$(SUDO) $(MAKE) disk_img DISK_SOURCES="$(PWD)/rootfs/loongarch64:disk-la.img:ext4" DISK_SIZE_MB=50
 
 kernel-rv:
 	@echo "Building RISC-V kernel..."
@@ -87,11 +94,7 @@ ax_root:
 
 testcase:
 	@make -C $(TESTCASE) ARCH=$(ARCH) rust
-	@if [ -z "$(shell command -v sudo)" ]; then \
-		./build_img.sh -a $(ARCH) -fs ext4 -file $(TESTCASE)/build/$(ARCH) -s 20; \
-	else \
-		sudo ./build_img.sh -a $(ARCH) -fs ext4 -file $(TESTCASE)/build/$(ARCH) -s 20; \
-	fi
+	$(SUDO) ./build_img.sh -a $(ARCH) -fs ext4 -file $(TESTCASE)/build/$(ARCH) -s 20; \
 	@mv ./disk.img $(AX_ROOT)/disk.img
 
 test: defconfig

@@ -37,5 +37,6 @@ axdriver_virtio = { path = "%AX_ROOT%/crates/axdriver_crates/axdriver_virtio" }
 
 [patch."https://github.com/AstranciA/fast-trap"]
 fast-trap = { path = "%AX_ROOT%/crates/fast-trap/fast-trap" }
+
 [profile.release]
 debug = 2

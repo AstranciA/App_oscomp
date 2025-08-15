@@ -244,11 +244,11 @@ dependencies = [
 
 [[package]]
 name = "axdriver_base"
-version = "0.1.3"
+version = "0.1.0"
 
 [[package]]
 name = "axdriver_block"
-version = "0.1.3"
+version = "0.1.0"
 dependencies = [
  "axdriver_base",
  "log",
@@ -256,14 +256,14 @@ dependencies = [
 
 [[package]]
 name = "axdriver_pci"
-version = "0.1.3"
+version = "0.1.0"
 dependencies = [
  "virtio-drivers",
 ]
 
 [[package]]
 name = "axdriver_virtio"
-version = "0.1.3"
+version = "0.1.0"
 dependencies = [
  "axdriver_base",
  "axdriver_block",
@@ -1865,9 +1865,9 @@ dependencies = [
 ]
 
 [[patch.unused]]
-name = "fast-trap"
+name = "axdriver_net"
 version = "0.1.0"
 
 [[patch.unused]]
-name = "axdriver_net"
-version = "0.1.3"
+name = "fast-trap"
+version = "0.1.0"

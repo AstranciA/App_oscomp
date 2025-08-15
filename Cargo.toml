@@ -53,4 +53,5 @@ acbat = { git = "https://github.com/AstranciA/AstrancE.git" }
 toml_edit = "0.22.24"
 
 [patch.crates-io]
+weak-map = { git = "https://github.com/Starry-OS/weak-map.git" }
 cty = { git = "https://github.com/MukioXun/cty.git" }
