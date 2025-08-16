@@ -25,6 +25,7 @@ use axsync::Mutex;
 use lazyinit::LazyInit;
 
 /// 测试用例构建器（Builder模式实现）
+#[derive(Clone)]
 pub struct TestCaseBuilder {
     app_path: String,
     pwd: String,
@@ -39,7 +40,7 @@ impl TestCaseBuilder {
             app_path: app_path.to_string(),
             pwd: pwd.to_string(),
             args: vec![app_path.to_string()], // 默认包含程序名作为 argv[0]
-            env: vec!["PATH=/usr/bin".to_string(), "MDEBUG=4".to_string(), "CDEBUG=4".to_string()], // 默认环境变量
+            env: vec!["PATH=/usr/bin".to_string(), "HOME=/root".to_string()], // 默认环境变量
         }
     }
 

@@ -1,5 +1,5 @@
 [net]
-offline = true
+offline=  false
 git-fetch-with-cli = true
 [patch.'https://github.com/AstranciA/AstrancE.git']
 axstd = { path = ".AstrancE/ulib/axstd" }
@@ -37,5 +37,6 @@ axdriver_virtio = { path = ".AstrancE/crates/axdriver_crates/axdriver_virtio" }
 
 [patch."https://github.com/AstranciA/fast-trap"]
 fast-trap = { path = ".AstrancE/crates/fast-trap/fast-trap" }
+
 [profile.release]
 debug = 2

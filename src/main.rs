@@ -26,16 +26,23 @@ fn main() {
     mount_testsuite();
 
     init_fs();
+    //TestCaseBuilder::shell("/").script("/ts/git-2.46.0/git init").run();
+    /*
+     *git.clone().args(&["config", "--global", "user.email", "AstrancE"]).run();
+     *git.clone().args(&["config", "--global", "AstrancE"]).run();
+     */
+    //TestCaseBuilder::new("/ts/glibc/copy-file-range-test-1", "/ts/glibc").run();
     //TestCaseBuilder::busybox("/").arg("--install").run();
     //TestCaseBuilder::shell("/ts/musl/ltp/testcases/bin").script("/test_ltp.sh").run();
     //TestCaseBuilder::shell("/ts/musl/ltp/testcases/bin").script("/usr/bin/busybox ls /proc/").run();
     //TestCaseBuilder::shell("/ts/musl/ltp/testcases/bin").script("/usr/bin/busybox cat /proc/4/stat").run();
+    //run_testcode("copy-file-range", "glibc");
     //run_testcode("copy-file-range", "musl");
     //run_testcode("interrupts", "musl");
     //run_testcode("splice", "musl");
     //run_testcode("ltp", "musl");
     //TestCaseBuilder::new("/ts/musl/ltp/testcases/bin/abort01", "/ts/musl").run();
-    oscomp_test();
+    //oscomp_test();
 
     // Should init once to init coreutils
     //TestCaseBuilder::busybox("/").arg("--install").run();
@@ -89,4 +96,35 @@ fn oscomp_test() {
             .script("/test_ltp.sh")
             .run();
     }
+}
+
+fn git_test() {
+    axfs::api::remove_dir("/ts/test/.git");
+    axfs::api::create_dir("/ts/test/.git");
+    axfs::api::write("/ts/test/.git/config", "");
+    axfs::api::write("/ts/test/.git/HEAD", "ref: refs/heads/master");
+    let git = TestCaseBuilder::new("/ts/git-2.46.0/git", "/ts/test")
+        .env("GIT_TRACE", "")
+        .env("GIT_TRACE_SETUP", "");
+
+    git.clone().arg("init").run();
+    axfs::api::write("/ts/test/hello", "world!");
+    git.clone().args(&["add", "."]).run();
+    git.clone().arg("status").run();
+    git.clone().args(&["commit", "-m", "add hello"]).run();
+    git.clone().args(&["branch", "new_branch"]).run();
+    git.clone().args(&["checkout", "new_branch"]).run();
+    axfs::api::write("/ts/test/world", "hello");
+    git.clone().args(&["add", "."]).run();
+    git.clone().arg("status").run();
+    git.clone().args(&["commit", "-m", "add hello"]).run();
+    TestCaseBuilder::busybox("/ts/test")
+        .arg("cat")
+        .arg("world")
+        .run();
+    git.clone().args(&["checkout", "master"]).run();
+    TestCaseBuilder::busybox("/ts/test")
+        .arg("cat")
+        .arg("hello")
+        .run();
 }
