@@ -33,7 +33,6 @@ fn main() {
      */
     //TestCaseBuilder::new("/ts/glibc/copy-file-range-test-1", "/ts/glibc").run();
     //TestCaseBuilder::busybox("/").arg("--install").run();
-    //TestCaseBuilder::shell("/ts/musl/ltp/testcases/bin").script("/test_ltp.sh").run();
     //TestCaseBuilder::shell("/ts/musl/ltp/testcases/bin").script("/usr/bin/busybox ls /proc/").run();
     //TestCaseBuilder::shell("/ts/musl/ltp/testcases/bin").script("/usr/bin/busybox cat /proc/4/stat").run();
     //run_testcode("copy-file-range", "glibc");
@@ -42,7 +41,7 @@ fn main() {
     //run_testcode("splice", "musl");
     //run_testcode("ltp", "musl");
     //TestCaseBuilder::new("/ts/musl/ltp/testcases/bin/abort01", "/ts/musl").run();
-    //oscomp_test();
+    oscomp_test();
 
     // Should init once to init coreutils
     //TestCaseBuilder::busybox("/").arg("--install").run();
@@ -95,6 +94,12 @@ fn oscomp_test() {
         TestCaseBuilder::shell("/ts/musl/ltp/testcases/bin")
             .script("/test_ltp.sh")
             .run();
+        #[cfg(target_arch="riscv64")]
+        TestCaseBuilder::shell("/ts/glibc/ltp/testcases/bin")
+            .script("/test_ltp_glibc.sh")
+            .run();
+        #[cfg(target_arch="riscv64")]
+        run_testcode("libcbench", "musl"); // will panic
     }
 }
 

@@ -22,7 +22,7 @@ while read test_case_name; do
     # 输出文件名和返回值
     echo "FAIL LTP CASE $test_case_name : $ret"
   fi
-done < /ltp_ok.txt
+done < /ltp-ok-la.txt
 
 
 echo "#### OS COMP TEST GROUP END ltp-musl ####"

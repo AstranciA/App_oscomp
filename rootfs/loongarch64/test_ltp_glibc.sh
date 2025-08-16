@@ -1,11 +1,11 @@
 #!/bin/bash
 
-echo "#### OS COMP TEST GROUP START ltp-musl ####"
+echo "#### OS COMP TEST GROUP START ltp-glibc ####"
 
 # 定义目标目录
 target_dir="ltp/testcases/bin"
 
-export PATH=/ts/musl/$target_dir:$PATH
+export PATH=/ts/glibc/$target_dir:$PATH
 
 # 遍历目录下的所有文件
 while read test_case_name; do
@@ -22,7 +22,7 @@ while read test_case_name; do
     # 输出文件名和返回值
     echo "FAIL LTP CASE $test_case_name : $ret"
   fi
-done < /ltp-ok-rv.txt
+done < /ltp-ok-la.txt
 
 
-echo "#### OS COMP TEST GROUP END ltp-musl ####"
+echo "#### OS COMP TEST GROUP END ltp-glibc ####"
