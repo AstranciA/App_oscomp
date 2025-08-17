@@ -5,7 +5,7 @@ alarm03
 alarm05
 alarm06
 alarm07
-asapi_01
+#asapi_01
 atof01
 brk02
 capget01

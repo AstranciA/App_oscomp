@@ -244,11 +244,11 @@ dependencies = [
 
 [[package]]
 name = "axdriver_base"
-version = "0.1.0"
+version = "0.1.3"
 
 [[package]]
 name = "axdriver_block"
-version = "0.1.0"
+version = "0.1.3"
 dependencies = [
  "axdriver_base",
  "log",
@@ -256,14 +256,14 @@ dependencies = [
 
 [[package]]
 name = "axdriver_pci"
-version = "0.1.0"
+version = "0.1.3"
 dependencies = [
  "virtio-drivers",
 ]
 
 [[package]]
 name = "axdriver_virtio"
-version = "0.1.0"
+version = "0.1.3"
 dependencies = [
  "axdriver_base",
  "axdriver_block",
@@ -331,7 +331,7 @@ dependencies = [
 
 [[package]]
 name = "axfs_devfs"
-version = "0.1.1"
+version = "0.1.0"
 dependencies = [
  "axfs_vfs",
  "log",
@@ -341,7 +341,7 @@ dependencies = [
 
 [[package]]
 name = "axfs_procfs"
-version = "0.1.1"
+version = "0.1.0"
 dependencies = [
  "axfs_vfs",
  "log",
@@ -350,7 +350,7 @@ dependencies = [
 
 [[package]]
 name = "axfs_ramfs"
-version = "0.1.1"
+version = "0.1.0"
 dependencies = [
  "axfs_vfs",
  "log",
@@ -359,7 +359,7 @@ dependencies = [
 
 [[package]]
 name = "axfs_vfs"
-version = "0.1.1"
+version = "0.1.0"
 dependencies = [
  "axerrno",
  "bitflags 2.9.1",
@@ -1865,4 +1865,4 @@ version = "0.1.0"
 
 [[patch.unused]]
 name = "axdriver_net"
-version = "0.1.0"
+version = "0.1.3"

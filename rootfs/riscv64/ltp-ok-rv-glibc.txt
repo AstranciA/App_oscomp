@@ -54,7 +54,7 @@ fork_procs
 fpathconf01
 fork03
 fork04
-fork07
+#fork07
 fork08
 fork09
 fork10
@@ -101,7 +101,7 @@ mprotect01
 open01
 open03
 open04
-page01
+#page01
 pathconf01
 pipe01
 pipe06

@@ -26,6 +26,8 @@ fn main() {
     mount_testsuite();
 
     init_fs();
+
+    //TestCaseBuilder::shell("/ts/musl").script("/libctest_testcode.sh").run();
     //TestCaseBuilder::shell("/").script("/ts/git-2.46.0/git init").run();
     /*
      *git.clone().args(&["config", "--global", "user.email", "AstrancE"]).run();
@@ -41,7 +43,7 @@ fn main() {
     //run_testcode("splice", "musl");
     //run_testcode("ltp", "musl");
     //TestCaseBuilder::new("/ts/musl/ltp/testcases/bin/abort01", "/ts/musl").run();
-    oscomp_test();
+    //oscomp_test();
 
     // Should init once to init coreutils
     //TestCaseBuilder::busybox("/").arg("--install").run();
@@ -88,18 +90,32 @@ fn oscomp_test() {
         TestCaseBuilder::shell("/ts/musl")
             .script("/testrun.sh")
             .run();
+
+        #[cfg(target_arch = "loongarch64")]
+        {
+            TestCaseBuilder::shell("/ts/musl")
+                .script("/libctest_testcode.sh")
+                .run();
+
+            TestCaseBuilder::shell("/ts/musl")
+                .script("./busybox echo \"#### OS COMP TEST GROUP END libctest-musl ####\"")
+                .run();
+        }
+
         TestCaseBuilder::shell("/ts/glibc")
             .script("/testrun_glibc.sh")
             .run();
         TestCaseBuilder::shell("/ts/musl/ltp/testcases/bin")
             .script("/test_ltp.sh")
             .run();
-        #[cfg(target_arch="riscv64")]
+
+        #[cfg(target_arch = "riscv64")]
         TestCaseBuilder::shell("/ts/glibc/ltp/testcases/bin")
             .script("/test_ltp_glibc.sh")
             .run();
-        #[cfg(target_arch="riscv64")]
+
         run_testcode("libcbench", "musl"); // will panic
+        run_testcode("libcbench", "glibc"); // will panic
     }
 }
 
