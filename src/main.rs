@@ -28,6 +28,7 @@ fn main() {
     init_fs();
     oscomp_test();
 
+    //TestCaseBuilder::new("/ts/glibc/copy-file-range-test-1", "/ts/glibc").run();
     //TestCaseBuilder::shell("/ts/musl").script("/libctest_testcode.sh").run();
     //TestCaseBuilder::shell("/").script("/ts/git-2.46.0/git init").run();
     /*
