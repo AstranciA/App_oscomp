@@ -136,7 +136,7 @@ signal02
 signal04
 signal05
 splice03
-stack_space
+#stack_space
 stream01
 stream03
 stream04

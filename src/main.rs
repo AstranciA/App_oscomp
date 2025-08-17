@@ -26,6 +26,7 @@ fn main() {
     mount_testsuite();
 
     init_fs();
+    oscomp_test();
 
     //TestCaseBuilder::shell("/ts/musl").script("/libctest_testcode.sh").run();
     //TestCaseBuilder::shell("/").script("/ts/git-2.46.0/git init").run();
@@ -43,7 +44,6 @@ fn main() {
     //run_testcode("splice", "musl");
     //run_testcode("ltp", "musl");
     //TestCaseBuilder::new("/ts/musl/ltp/testcases/bin/abort01", "/ts/musl").run();
-    //oscomp_test();
 
     // Should init once to init coreutils
     //TestCaseBuilder::busybox("/").arg("--install").run();
