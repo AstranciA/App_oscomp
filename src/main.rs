@@ -27,54 +27,6 @@ fn main() {
 
     init_fs();
     oscomp_test();
-
-    //TestCaseBuilder::new("/ts/glibc/copy-file-range-test-1", "/ts/glibc").run();
-    //TestCaseBuilder::shell("/ts/musl").script("/libctest_testcode.sh").run();
-    //TestCaseBuilder::shell("/").script("/ts/git-2.46.0/git init").run();
-    /*
-     *git.clone().args(&["config", "--global", "user.email", "AstrancE"]).run();
-     *git.clone().args(&["config", "--global", "AstrancE"]).run();
-     */
-    //TestCaseBuilder::new("/ts/glibc/copy-file-range-test-1", "/ts/glibc").run();
-    //TestCaseBuilder::busybox("/").arg("--install").run();
-    //TestCaseBuilder::shell("/ts/musl/ltp/testcases/bin").script("/usr/bin/busybox ls /proc/").run();
-    //TestCaseBuilder::shell("/ts/musl/ltp/testcases/bin").script("/usr/bin/busybox cat /proc/4/stat").run();
-    //run_testcode("copy-file-range", "glibc");
-    //run_testcode("copy-file-range", "musl");
-    //run_testcode("interrupts", "musl");
-    //run_testcode("splice", "musl");
-    //run_testcode("ltp", "musl");
-    //TestCaseBuilder::new("/ts/musl/ltp/testcases/bin/abort01", "/ts/musl").run();
-
-    // Should init once to init coreutils
-    //TestCaseBuilder::busybox("/").arg("--install").run();
-
-    //TestCaseBuilder::shell("/").run();
-    //TestCaseBuilder::shell("/ts/musl").script("zcat /proc/config.gz").run();
-    //TestCaseBuilder::new("/ts/musl/ltp/testcases/bin/cgroup_fj_proc", "/ts/musl").run();
-    //TestCaseBuilder::new("/ts/musl/ltp/testcases/bin/rt_sigsuspend01", "/ts/musl/ltp/testcases/bin").run();
-
-    //run_testcode("ltp", "musl");
-    /*
-     *TestCaseBuilder::new("/ts/musl/entry-static.exe", "/ts/musl")
-     *    .arg("fscanf")
-     *    .run();
-     */
-    /*
-     *    TestCaseBuilder::new("/ts/musl/runtest.exe", "/ts/musl")
-     *        .args(&["-w", "/ts/musl/entry-static.exe", "pthread_cancel"])
-     *
-     *        .run();
-     */
-    /*
-     *    TestCaseBuilder::new("/ts/musl/runtest.exe", "/ts/musl")
-     *        .args(&["-w", "/ts/musl/entry-static.exe", "pthread_cond_smasher"])
-     *
-     *        .run();
-     */
-    //TestCaseBuilder::shell("/ts/musl").script("./iozone -t 1 -i 0 -i 1 -r 1k -s 1m").run();
-    //run_testcode("libcbench", "glibc");
-
     info!("All tests completed");
 }
 
@@ -88,29 +40,18 @@ fn oscomp_test() {
         run_testcode("splice", "glibc");
     } else {
         TestCaseBuilder::busybox("/").arg("--install").run();
+
         TestCaseBuilder::shell("/ts/musl")
             .script("/testrun.sh")
             .run();
 
-        #[cfg(target_arch = "loongarch64")]
-        {
-            TestCaseBuilder::shell("/ts/musl")
-                .script("/libctest_testcode.sh")
-                .run();
-
-            TestCaseBuilder::shell("/ts/musl")
-                .script("./busybox echo \"#### OS COMP TEST GROUP END libctest-musl ####\"")
-                .run();
-        }
-
         TestCaseBuilder::shell("/ts/glibc")
             .script("/testrun_glibc.sh")
             .run();
+
         TestCaseBuilder::shell("/ts/musl/ltp/testcases/bin")
             .script("/test_ltp.sh")
             .run();
-
-        #[cfg(target_arch = "riscv64")]
         TestCaseBuilder::shell("/ts/glibc/ltp/testcases/bin")
             .script("/test_ltp_glibc.sh")
             .run();

@@ -1860,9 +1860,9 @@ dependencies = [
 ]
 
 [[patch.unused]]
-name = "axdriver_net"
+name = "fast-trap"
 version = "0.1.0"
 
 [[patch.unused]]
-name = "fast-trap"
+name = "axdriver_net"
 version = "0.1.0"
